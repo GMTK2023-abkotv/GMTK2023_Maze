@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{48CBBF14-BD6E-49D2-87ED-D37DE95D2A82}" SchemaVersion="110">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{48CBBF14-BD6E-49D2-87ED-D37DE95D2A82}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Player_SFX" ID="{DAB8951B-7294-4BDC-BBFC-F58C5B0ADB04}" ShortID="10670201">
+					<ChildrenList>
+						<RandomSequenceContainer Name="Water_Movement" ID="{E4DFDE82-E79D-4458-8DC6-3DFF394A0203}" ShortID="567436048">
+							<PropertyList>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{5D1FB95E-0087-4A1B-9E61-F071ADE0C684}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="600"/>
+													<Property Name="Min" Type="Real64" Value="-600"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A09C72AC-129E-45EE-8BB5-0EEB23F0A71F}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{02BD653E-6237-460A-87C3-9555ABCC790B}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Spash 1" ID="{97818B2E-FEEE-4A3C-BBD3-18037DB13E54}" ShortID="310245015">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A09C72AC-129E-45EE-8BB5-0EEB23F0A71F}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{02BD653E-6237-460A-87C3-9555ABCC790B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MACK Liquid Splash Water Small Low" ID="{0A570B47-D02C-4E3D-8A31-9FB17A3F8DEE}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.176832037049866"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.277661944871938"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="15.8596294839774"/>
+												<Property Name="TrimEnd" Type="Real64" Value="16.6838975939991"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>MACK Liquid Splash Water Small Low.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="240754933"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MACK Liquid Splash Water Small Low" ID="{0A570B47-D02C-4E3D-8A31-9FB17A3F8DEE}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Spash 2" ID="{291392D9-9D8E-4440-A7DD-E996AA1229BE}" ShortID="554517686">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A09C72AC-129E-45EE-8BB5-0EEB23F0A71F}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{02BD653E-6237-460A-87C3-9555ABCC790B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MACK Liquid Splash Water Small Low" ID="{FA4CC81C-F58F-4007-BA18-C13A86F112C4}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.176832037049866"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.277661944871938"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="3.08347377863967"/>
+												<Property Name="TrimEnd" Type="Real64" Value="3.80370344825047"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>MACK Liquid Splash Water Small Low.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="258053250"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MACK Liquid Splash Water Small Low" ID="{FA4CC81C-F58F-4007-BA18-C13A86F112C4}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Spash 3" ID="{6D597EC1-353D-4150-B1EB-AAB126C9D42C}" ShortID="402377386">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A09C72AC-129E-45EE-8BB5-0EEB23F0A71F}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{02BD653E-6237-460A-87C3-9555ABCC790B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MACK Liquid Splash Water Small Low" ID="{A8A7694E-1879-480E-9396-639AF5084D43}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.176832037049866"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.277661944871938"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="6.36092078753583"/>
+												<Property Name="TrimEnd" Type="Real64" Value="7.06152502595563"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>MACK Liquid Splash Water Small Low.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="588020897"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MACK Liquid Splash Water Small Low" ID="{A8A7694E-1879-480E-9396-639AF5084D43}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Spash 4" ID="{7A5E8649-D3D3-4BC2-A4BF-49802F514292}" ShortID="820320089">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A09C72AC-129E-45EE-8BB5-0EEB23F0A71F}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{02BD653E-6237-460A-87C3-9555ABCC790B}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="MACK Liquid Splash Water Small Low" ID="{E9C84BD7-427C-4D81-B954-BF285D95675E}">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.176832037049866"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.277661944871938"/>
+												<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+												<Property Name="TrimBegin" Type="Real64" Value="12.6803096310362"/>
+												<Property Name="TrimEnd" Type="Real64" Value="13.341663007074"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>MACK Liquid Splash Water Small Low.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="1008999194"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="MACK Liquid Splash Water Small Low" ID="{E9C84BD7-427C-4D81-B954-BF285D95675E}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</RandomSequenceContainer>
+						<Sound Name="Rool_Move" ID="{8D7141CC-D64D-4A54-8DC7-A9ED51F6E4C6}" ShortID="494509853">
+							<PropertyList>
+								<Property Name="Highpass" Type="int16">
+									<ValueList>
+										<Value>28</Value>
+									</ValueList>
+								</Property>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>230</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>4</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<Custom CreatedFrom="{6D1B890C-9826-4384-BF07-C15223E9FB56}">
+										<Conversion Name="Default Conversion Settings (Custom)" ID="{FDA113EB-9B11-47D0-B8CE-360751F7507E}">
+											<PropertyList>
+												<Property Name="Channels" Type="int32">
+													<ValueList>
+														<Value Platform="Windows">0</Value>
+														<Value Platform="Mac">0</Value>
+													</ValueList>
+												</Property>
+												<Property Name="LRMix" Type="Real64">
+													<ValueList>
+														<Value Platform="Windows">0</Value>
+														<Value Platform="Mac">0</Value>
+													</ValueList>
+												</Property>
+												<Property Name="MaxSampleRate" Type="int32">
+													<ValueList>
+														<Value Platform="Windows">0</Value>
+														<Value Platform="Mac">0</Value>
+													</ValueList>
+												</Property>
+												<Property Name="MinSampleRate" Type="int32">
+													<ValueList>
+														<Value Platform="Windows">0</Value>
+														<Value Platform="Mac">0</Value>
+													</ValueList>
+												</Property>
+												<Property Name="SampleRate" Type="int32">
+													<ValueList>
+														<Value Platform="Windows">44100</Value>
+														<Value Platform="Mac">44100</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ConversionPluginInfoList>
+												<ConversionPluginInfo Platform="Windows">
+													<ConversionPlugin Name="" ID="{B60A9680-0A6F-4BAB-B792-139D69F7B4D5}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+												</ConversionPluginInfo>
+												<ConversionPluginInfo Platform="Mac">
+													<ConversionPlugin Name="" ID="{2AB8327C-F82A-490C-A080-B561B9615F45}" PluginName="PCM" CompanyID="0" PluginID="1"/>
+												</ConversionPluginInfo>
+											</ConversionPluginInfoList>
+										</Conversion>
+									</Custom>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{02BD653E-6237-460A-87C3-9555ABCC790B}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Surreal-MarbleRolling-ECU-D" ID="{970DD472-E934-4A2B-AFB4-C35D09FEE035}">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="4.55091265985922"/>
+										<Property Name="FadeOutDuration" Type="Real64" Value="0.942412213740454"/>
+										<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
+										<Property Name="TrimBegin" Type="Real64" Value="1.34630316248637"/>
+										<Property Name="TrimEnd" Type="Real64" Value="119.820981461287"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Surreal-MarbleRolling-ECU-D.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="264992092"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Surreal-MarbleRolling-ECU-D" ID="{970DD472-E934-4A2B-AFB4-C35D09FEE035}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
