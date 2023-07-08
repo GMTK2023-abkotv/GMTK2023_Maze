@@ -1,62 +1,47 @@
-using System;
 using UnityEngine;
-
 
 public class MotionController : MonoBehaviour
 {
     [SerializeField]
-    float _moveForceAmount;
+    float _moveDelta;
 
-    Rigidbody2D _rigidBody;
+    [SerializeField]
+    float _moveSpeed;
 
-    MoveCommand _command;
-
-    bool isWalking;
-
-    public Action OnStartWalk;
-    public Action OnStopWalk;
-    public Action OnJump;
-    public Action OnDash;
+    Vector2 start;
+    Vector2 end;
+    float lerp;
 
     protected virtual void Awake()
     {
-        TryGetComponent(out _rigidBody);
+        lerp = 2;
     }
 
     protected void OnMoveCommand(MoveCommand newCommand)
     {
+        Debug.Log("movecommand + " + lerp);
+        if (lerp <= 1)
+        {
+            return;
+        }
+
         switch (newCommand.Motion)
         {
             case MotionType.Walk:
-                _command = newCommand;
+                start = transform.position;
+                end = (Vector2)transform.position + _moveDelta * newCommand.Direction;
+                lerp = 0;
+                Debug.Log($"{start} {end}");
                 break;
         }
     }
 
-    protected virtual void Update()
+    void Update()
     {
-    }
-
-    void FixedUpdate()
-    {
-        switch (_command.Motion)
+        if (lerp <= 1)
         {
-            case MotionType.Walk:
-                _rigidBody.AddForce(_moveForceAmount * _command.Direction);
-                if (!isWalking)
-                {
-                    isWalking = true;
-                    OnStartWalk?.Invoke();
-                }
-                break;
-            case MotionType.Nihil:
-                if (isWalking)
-                {
-                   isWalking = false;
-                   OnStopWalk?.Invoke();
-                }
-                break;
+            lerp += _moveSpeed * Time.deltaTime;
+            transform.position = Vector3.Lerp(start, end, lerp);
         }
-        _command.Motion = MotionType.Nihil;
     }
 }

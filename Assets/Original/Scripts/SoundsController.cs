@@ -1,53 +1,53 @@
-using UnityEngine;
+// using UnityEngine;
 
-public class SoundsController : MonoBehaviour
-{
-    [SerializeField]
-    AK.Wwise.Event Roll;
+// public class SoundsController : MonoBehaviour
+// {
+//     [SerializeField]
+//     AK.Wwise.Event Roll;
 
-    [SerializeField]
-    string jumpSound;
+//     [SerializeField]
+//     string jumpSound;
 
-    [SerializeField]
-    AK.Wwise.Event Dash;
+//     [SerializeField]
+//     AK.Wwise.Event Dash;
 
-    MotionController motionController;
+//     MotionController motionController;
 
-    void Awake()
-    {
-        TryGetComponent(out motionController);
+//     void Awake()
+//     {
+//         TryGetComponent(out motionController);
 
-        motionController.OnStartWalk += StartWalk;
-        motionController.OnStopWalk += StopWalk;
-        motionController.OnJump += Jump;
-        motionController.OnDash += PlayDash;
-    }
+//         motionController.OnStartWalk += StartWalk;
+//         motionController.OnStopWalk += StopWalk;
+//         motionController.OnJump += Jump;
+//         motionController.OnDash += PlayDash;
+//     }
 
-    void OnDestroy()
-    {
-        motionController.OnStartWalk -= StartWalk;
-        motionController.OnStopWalk -= StopWalk;
-        motionController.OnJump -= Jump;
-        motionController.OnDash -= PlayDash;
-    }
+//     void OnDestroy()
+//     {
+//         motionController.OnStartWalk -= StartWalk;
+//         motionController.OnStopWalk -= StopWalk;
+//         motionController.OnJump -= Jump;
+//         motionController.OnDash -= PlayDash;
+//     }
 
-    void StartWalk()
-    {
-        Roll.Post(gameObject);
-    }
+//     void StartWalk()
+//     {
+//         Roll.Post(gameObject);
+//     }
 
-    void StopWalk()
-    {
-        Roll.ExecuteAction(gameObject, AkActionOnEventType.AkActionOnEventType_Stop, 0, AkCurveInterpolation.AkCurveInterpolation_Linear);
-    }
+//     void StopWalk()
+//     {
+//         Roll.ExecuteAction(gameObject, AkActionOnEventType.AkActionOnEventType_Stop, 0, AkCurveInterpolation.AkCurveInterpolation_Linear);
+//     }
 
-    void Jump()
-    { 
+//     void Jump()
+//     { 
 
-    }
+//     }
 
-    void PlayDash()
-    {
-        Dash.Post(gameObject);
-    }
-}
+//     void PlayDash()
+//     {
+//         Dash.Post(gameObject);
+//     }
+// }

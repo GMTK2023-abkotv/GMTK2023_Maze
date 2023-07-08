@@ -1,15 +1,13 @@
-using Unity.Mathematics;
+using UnityEngine;
 
 public struct MoveCommand
 {
     public MotionType Motion;
-    public float2 Direction;
+    public Vector2 Direction;
 }
 
 public enum MotionType
 { 
     Nihil,
-    Walk,
-    Jump,
-    Dash
+    Walk
 }
