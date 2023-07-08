@@ -2,6 +2,13 @@
 <WwiseDocument Type="WorkUnit" ID="{48CBBF14-BD6E-49D2-87ED-D37DE95D2A82}" SchemaVersion="110">
 	<AudioObjects>
 		<WorkUnit Name="Default Work Unit" ID="{48CBBF14-BD6E-49D2-87ED-D37DE95D2A82}" PersistMode="Standalone">
+			<PropertyList>
+				<Property Name="Inclusion" Type="bool">
+					<ValueList>
+						<Value>False</Value>
+					</ValueList>
+				</Property>
+			</PropertyList>
 			<ChildrenList>
 				<Folder Name="Player_SFX" ID="{DAB8951B-7294-4BDC-BBFC-F58C5B0ADB04}" ShortID="10670201">
 					<ChildrenList>

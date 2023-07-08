@@ -25,24 +25,7 @@ public class PlayerInput : MonoBehaviour
             return;
         }
         
-        bool isWalking = IsWalkCommand(out float3 direction);
-
-        if (Input.GetKeyDown(_jumpKey))
-        {
-            MoveCommand jumpCommand = new() { Motion = MotionType.Jump };
-            jumpCommand.Direction = math.up();
-            PlayerDelegatesContainer.EventMoveCommand?.Invoke(jumpCommand);
-            return;
-        }
-
-        if (Input.GetKeyDown(_dashKey))
-        {
-            MoveCommand dashCommand = new() { Motion = MotionType.Dash };
-            if (isWalking) dashCommand.Direction = direction;
-            else dashCommand.Direction = float3.zero;
-            PlayerDelegatesContainer.EventMoveCommand?.Invoke(dashCommand);
-            return;
-        }
+        bool isWalking = IsWalkCommand(out float2 direction);
 
         if (isWalking)
         {
@@ -56,10 +39,10 @@ public class PlayerInput : MonoBehaviour
 
     }
 
-    bool IsWalkCommand(out float3 direction)
+    bool IsWalkCommand(out float2 direction)
     {
         bool isWalking = false;
-        direction = float3.zero;
+        direction = float2.zero;
         if (Input.GetKey(_moveLeftKey))
         {
             direction.x = -1;
@@ -73,12 +56,12 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKey(_moveDownKey))
         {
-            direction.z = -1;
+            direction.y = -1;
             isWalking = true;
         }
         else if (Input.GetKey(_moveUpKey))
         {
-            direction.z = 1;
+            direction.y = 1;
             isWalking = true;
         }
         direction = math.normalizesafe(direction);

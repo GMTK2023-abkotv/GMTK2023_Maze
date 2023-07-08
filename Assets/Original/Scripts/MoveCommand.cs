@@ -3,7 +3,7 @@ using Unity.Mathematics;
 public struct MoveCommand
 {
     public MotionType Motion;
-    public float3 Direction;
+    public float2 Direction;
 }
 
 public enum MotionType
