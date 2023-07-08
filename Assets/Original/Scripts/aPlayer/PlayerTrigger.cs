@@ -3,10 +3,10 @@ using UnityEngine;
 public class PlayerTrigger : MonoBehaviour
 {
     [SerializeField]
-    Collider _trigger;
+    Collider2D _trigger;
 
     [SerializeField]
-    Collider _collider;
+    Collider2D _collider;
 
     void Awake()
     { 
@@ -34,22 +34,22 @@ public class PlayerTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == Layers.Death)
-        {
-            PlayerDelegatesContainer.EventPlayerDead();
-            return;
-        }
+        // if (other.gameObject.layer == Layers.Death)
+        // {
+        //     PlayerDelegatesContainer.EventPlayerDead();
+        //     return;
+        // }
 
-        if (other.gameObject.layer == Layers.Holes)
-        {
-            _collider.enabled = false;
-            return;
-        }
+        // if (other.gameObject.layer == Layers.Holes)
+        // {
+        //     _collider.enabled = false;
+        //     return;
+        // }
 
-        if (other.gameObject.layer == Layers.Enemies)
-        {
-            _collider.enabled = false;
-            PlayerDelegatesContainer.EventPlayerCapture();
-        }
+        // if (other.gameObject.layer == Layers.Enemies)
+        // {
+        //     _collider.enabled = false;
+        //     PlayerDelegatesContainer.EventPlayerCapture();
+        // }
     }
 }
