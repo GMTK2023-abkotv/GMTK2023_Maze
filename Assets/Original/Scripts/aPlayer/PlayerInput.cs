@@ -23,14 +23,13 @@ public class PlayerInput : MonoBehaviour
             return;
         }
         
-        bool isWalking = IsWalkCommand(out float2 direction);
+        bool isWalking = IsWalkCommand(out int2 direction);
 
         if (isWalking)
         {
-            MoveCommand walkCommand = new() 
-            { 
-                Motion = MotionType.Walk,
-                Direction = direction
+            MoveCommand walkCommand = new()
+            {
+                Direction = new Vector3Int(direction.x, direction.y, 0)
             };
             PlayerDelegatesContainer.EventMoveCommand?.Invoke(walkCommand);
         }
@@ -42,10 +41,10 @@ public class PlayerInput : MonoBehaviour
 
     }
 
-    bool IsWalkCommand(out float2 direction)
+    bool IsWalkCommand(out int2 direction)
     {
         bool isWalking = false;
-        direction = float2.zero;
+        direction = int2.zero;
         if (Input.GetKeyUp(_moveLeftKey))
         {
             direction.x = -1;

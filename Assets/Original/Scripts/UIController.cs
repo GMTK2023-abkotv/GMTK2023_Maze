@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
     // button startGame on startCanvas
     public void OnStartGame()
     {
-        PlayerDelegatesContainer.EventPlayerAlive();
+        GameDelegatesContainer.Start();
         _startCanvas.gameObject.SetActive(false);
     }
 }

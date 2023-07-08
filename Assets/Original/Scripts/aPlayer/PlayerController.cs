@@ -7,31 +7,30 @@ public class PlayerController : MotionController
     protected override void Awake()
     {
         base.Awake();
-        PlayerDelegatesContainer.EventPlayerAlive += OnAlive;
-        PlayerDelegatesContainer.GetTransform += GetTransform;
-    }
-
-    void OnAlive()
-    {
-        PlayerDelegatesContainer.EventMoveCommand += OnMoveCommand;
-        PlayerDelegatesContainer.EventPlayerDead += OnDeath;
-    }
-
-    void OnDeath()
-    { 
-        PlayerDelegatesContainer.EventMoveCommand -= OnMoveCommand;
-        PlayerDelegatesContainer.EventPlayerDead -= OnDeath;
+        PlayerDelegatesContainer.IsMoving += IsMoving;
+        PlayerDelegatesContainer.NewMoveDestination += OnNewMove;
     }
 
     void OnDestroy()
     {
-        PlayerDelegatesContainer.EventPlayerDead?.Invoke();
-        PlayerDelegatesContainer.EventPlayerAlive -= OnAlive;
-        PlayerDelegatesContainer.GetTransform -= GetTransform;
+        PlayerDelegatesContainer.IsMoving -= IsMoving;
+        PlayerDelegatesContainer.NewMoveDestination -= OnNewMove;
+    }
+
+    void OnNewMove(Vector2 position)
+    {
+        start = transform.position;
+        end = position;
+        lerp = 0;
     }
 
     Transform GetTransform()
     {
         return transform;
+    }
+
+    bool IsMoving()
+    {
+        return lerp <= 1;
     }
 }

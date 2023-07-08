@@ -14,6 +14,7 @@ public class FeedbacksController : MonoBehaviour
     [SerializeField]
     ParticleSystem _groundJumpParticles;
 
+    [SerializeField]
     Transform _playerTransform;
 
 
@@ -27,6 +28,5 @@ public class FeedbacksController : MonoBehaviour
 
     void Start()
     { 
-        _playerTransform = PlayerDelegatesContainer.GetTransform();
     }
 }
