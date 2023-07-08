@@ -64,14 +64,8 @@ public class Warrior : MonoBehaviour
         ResetVisited();
 
         minDistance = int.MaxValue;
-        tempMoves.Clear();
-        StartCoroutine(PathCoroutine(pos + new int2(1, 0), 0));
-        tempMoves.Clear();
-        StartCoroutine(PathCoroutine(pos + new int2(-1, 0), 1));
-        tempMoves.Clear();
-        StartCoroutine(PathCoroutine(pos + new int2(0, 1), 2));
-        tempMoves.Clear();
-        StartCoroutine(PathCoroutine(pos + new int2(0, -1), 3));
+
+        StartCoroutine(Pathing());
     }
 
     void Path(int2 gridPos, int2 prev)
@@ -100,24 +94,45 @@ public class Warrior : MonoBehaviour
 
         int2x3 priority = int2x3.zero;
         int2 delta = targetPos - gridPos;
-        if (math.abs(delta.x) < math.abs(delta.y))
+        if (math.abs(delta.x) > math.abs(delta.y))
         {
-            priority = delta.x > 0 ? Right(prev) : Left(prev);
+            priority = delta.x > 0 ? Left(prev) : Right(prev);
         }
         else
         {
-            priority = delta.y > 0 ? Top(prev) : Bottom(prev);
+            priority = delta.y > 0 ? Bottom(prev) : Top(prev);
         }
 
-        Path(gridPos + priority[0], 0);
-        Path(gridPos + priority[1], 1);
-        Path(gridPos + priority[2], 2);
+        Path(gridPos + priority[0], priority[0]);
+        Path(gridPos + priority[1], priority[1]);
+        Path(gridPos + priority[2], priority[2]);
 
         tempMoves.RemoveAt(tempMoves.Count - 1);
     }
 
+    IEnumerator Pathing()
+    {
+        int2x4 priority = int2x4.zero;
+        int2 delta = targetPos - pos;
+        if (math.abs(delta.x) < math.abs(delta.y))
+        {
+            priority = delta.x > 0 ? new int2x4(left, top, bottom, right) : new int2x4(right, bottom, top, left);
+        }
+        else
+        {
+            priority = delta.y > 0 ? new int2x4(bottom, left, right, top) : new int2x4(top, right, left, bottom);
+        }
+
+        tempMoves.Clear();
+        yield return StartCoroutine(PathCoroutine(pos + priority[0], priority[0]));
+        yield return StartCoroutine(PathCoroutine(pos + priority[1], priority[1]));
+        yield return StartCoroutine(PathCoroutine(pos + priority[2], priority[2]));
+        yield return StartCoroutine(PathCoroutine(pos + priority[3], priority[3]));
+    }
+
     IEnumerator PathCoroutine(int2 gridPos, int2 prev)
     {
+        Debug.Log(gridPos + " " + prev);
         int2 index = gridPos + offset;
         // Debug.Log(gridPos + " " + index);
         bool outOfBound = index.x < 0 || index.x >= walkable[0].Count  || index.y < 0 || index.y >= walkable.Count;
@@ -151,7 +166,7 @@ public class Warrior : MonoBehaviour
 
         int2x3 priority = int2x3.zero;
         int2 delta = targetPos - gridPos;
-        if (math.abs(delta.x) < math.abs(delta.y))
+        if (math.abs(delta.x) > math.abs(delta.y))
         {
             priority = delta.x > 0 ? Right(prev) : Left(prev);
         }
@@ -160,9 +175,9 @@ public class Warrior : MonoBehaviour
             priority = delta.y > 0 ? Top(prev) : Bottom(prev);
         }
 
-        yield return StartCoroutine(PathCoroutine(gridPos + priority[0], 0));
-        yield return StartCoroutine(PathCoroutine(gridPos + priority[1], 1));
-        yield return StartCoroutine(PathCoroutine(gridPos + priority[2], 2));
+        yield return StartCoroutine(PathCoroutine(gridPos + priority[0], priority[0]));
+        yield return StartCoroutine(PathCoroutine(gridPos + priority[1], priority[1]));
+        yield return StartCoroutine(PathCoroutine(gridPos + priority[2], priority[2]));
 
         tempMoves.RemoveAt(tempMoves.Count - 1);
     }
