@@ -6,6 +6,7 @@ public static class PlayerDelegatesContainer
     public static Func<Transform> GetTransform;
 
     public static Action<MoveCommand> EventMoveCommand;
+    public static Action EventInteractCommand;
 
     public static Action EventMove; // for particles, visuals, sounds
     public static Action EventJump;

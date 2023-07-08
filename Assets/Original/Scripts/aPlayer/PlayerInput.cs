@@ -14,9 +14,7 @@ public class PlayerInput : MonoBehaviour
     KeyCode _moveUpKey = KeyCode.W;
 
     [SerializeField]
-    KeyCode _jumpKey = KeyCode.Space;
-    [SerializeField]
-    KeyCode _dashKey = KeyCode.V;
+    KeyCode _interactKey = KeyCode.E;
 
     void Update()
     {
@@ -35,6 +33,11 @@ public class PlayerInput : MonoBehaviour
                 Direction = direction
             };
             PlayerDelegatesContainer.EventMoveCommand?.Invoke(walkCommand);
+        }
+
+        if (Input.GetKeyUp(_interactKey))
+        {
+            PlayerDelegatesContainer.EventInteractCommand?.Invoke();
         }
 
     }

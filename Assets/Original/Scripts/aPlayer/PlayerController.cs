@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class PlayerController : MotionController
 {
-    [SerializeField]
-    Transform start;
-
     bool _isActivated;
 
     protected override void Awake()
@@ -17,8 +14,6 @@ public class PlayerController : MotionController
     void OnAlive()
     {
         PlayerDelegatesContainer.EventMoveCommand += OnMoveCommand;
-
-        transform.position = start.position;
     }
 
     void OnDestroy()
