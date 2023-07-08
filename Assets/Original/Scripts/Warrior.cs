@@ -57,7 +57,6 @@ public class Warrior : MonoBehaviour
         DebugMoves();
     }
 
-
     void RecalculatePath(int2 playerPos)
     {
         targetPos = playerPos;
@@ -67,19 +66,21 @@ public class Warrior : MonoBehaviour
         minDistance = int.MaxValue;
         tempMoves.Clear();
         StartCoroutine(PathCoroutine(pos + new int2(1, 0), 0));
-        // tempMoves.Clear();
+        tempMoves.Clear();
         StartCoroutine(PathCoroutine(pos + new int2(-1, 0), 1));
-        // tempMoves.Clear();
+        tempMoves.Clear();
         StartCoroutine(PathCoroutine(pos + new int2(0, 1), 2));
-        // tempMoves.Clear();
+        tempMoves.Clear();
         StartCoroutine(PathCoroutine(pos + new int2(0, -1), 3));
     }
 
-    void Path(int2 gridPos)
+    void Path(int2 gridPos, int2 prev)
     {
         int2 index = gridPos + offset;
-        if (gridPos.x < -dims.x || gridPos.x >= dims.x || gridPos.y < -dims.y || gridPos.y >= dims.y ||
-            !walkable[index.y][index.x] || visited[index.y][index.x])
+        bool outOfBound = index.x < 0 || index.x >= walkable[0].Count || index.y < 0 || index.y >= walkable.Count;
+        bool isWalkable = outOfBound || walkable[index.y][index.x];
+        bool isVisited = outOfBound || visited[index.y][index.x];
+        if (outOfBound || !isWalkable || isVisited)
         {
             return;
         }
@@ -97,21 +98,26 @@ public class Warrior : MonoBehaviour
         tempMoves.Add(gridPos);
         visited[index.y][index.x] = true;
 
-        Path(gridPos + new int2(1, 0));
-        Path(gridPos + new int2(-1, 0));
-        Path(gridPos + new int2(0, 1));
-        Path(gridPos + new int2(0, -1));
+        int2x3 priority = int2x3.zero;
+        int2 delta = targetPos - gridPos;
+        if (math.abs(delta.x) < math.abs(delta.y))
+        {
+            priority = delta.x > 0 ? Right(prev) : Left(prev);
+        }
+        else
+        {
+            priority = delta.y > 0 ? Top(prev) : Bottom(prev);
+        }
+
+        Path(gridPos + priority[0], 0);
+        Path(gridPos + priority[1], 1);
+        Path(gridPos + priority[2], 2);
 
         tempMoves.RemoveAt(tempMoves.Count - 1);
     }
 
-    IEnumerator PathCoroutine(int2 gridPos, int prev)
+    IEnumerator PathCoroutine(int2 gridPos, int2 prev)
     {
-        if (found)
-        {
-            yield break;
-        }
-
         int2 index = gridPos + offset;
         // Debug.Log(gridPos + " " + index);
         bool outOfBound = index.x < 0 || index.x >= walkable[0].Count  || index.y < 0 || index.y >= walkable.Count;
@@ -126,13 +132,13 @@ public class Warrior : MonoBehaviour
         if (math.all(gridPos == targetPos))
         {
             Debug.Log("m<");
-            found = true;
+            // found = true;
             if (tempMoves.Count < minDistance)
             {
                 Debug.Log("m<");
                 minDistance = tempMoves.Count;
                 CopyMoves();
-                found = true;
+                // found = true;
                 yield break;
             }
         }
@@ -143,21 +149,116 @@ public class Warrior : MonoBehaviour
         tempMoves.Add(gridPos);
         visited[index.y][index.x] = true;
 
-        if (prev != 1) StartCoroutine(PathCoroutine(gridPos + new int2(1, 0), 0));
-        if (prev != 0) StartCoroutine(PathCoroutine(gridPos + new int2(-1, 0), 1));
-        if (prev != 3) StartCoroutine(PathCoroutine(gridPos + new int2(0, 1), 2));
-        if (prev != 2) StartCoroutine(PathCoroutine(gridPos + new int2(0, -1), 3));
+        int2x3 priority = int2x3.zero;
+        int2 delta = targetPos - gridPos;
+        if (math.abs(delta.x) < math.abs(delta.y))
+        {
+            priority = delta.x > 0 ? Right(prev) : Left(prev);
+        }
+        else 
+        {
+            priority = delta.y > 0 ? Top(prev) : Bottom(prev);
+        }
+
+        yield return StartCoroutine(PathCoroutine(gridPos + priority[0], 0));
+        yield return StartCoroutine(PathCoroutine(gridPos + priority[1], 1));
+        yield return StartCoroutine(PathCoroutine(gridPos + priority[2], 2));
 
         tempMoves.RemoveAt(tempMoves.Count - 1);
     }
+
+    int2x3 Top(int2 prev)
+    {
+        if (math.all(prev == bottom))
+        {
+            return new int2x3(left, right, top);
+        }
+        else if (math.all(prev == left))
+        {
+            return new int2x3(bottom, right, top);
+        }
+        else if (math.all(prev == right))
+        {
+            return new int2x3(bottom, left, top);
+        }
+        else
+        { 
+            return new int2x3(bottom, left, right);
+        }
+    }
+
+    int2x3 Right(int2 prev)
+    {
+        if (math.all(prev == left))
+        {
+            return new int2x3(top, bottom, right);
+        }
+        else if (math.all(prev == top))
+        {
+            return new int2x3(left, bottom, right);
+        }
+        else if (math.all(prev == bottom))
+        {
+            return new int2x3(left, top, right);
+        }
+        else
+        {
+            return new int2x3(left, top, bottom);
+        }
+    }
+
+    int2x3 Bottom(int2 prev)
+    {
+        if (math.all(prev == top))
+        {
+            return new int2x3(right, left, bottom);
+        }
+        else if (math.all(prev == right))
+        {
+            return new int2x3(top, left, bottom);
+        }
+        else if (math.all(prev == left))
+        {
+            return new int2x3(top, right, bottom);
+        }
+        else
+        {
+            return new int2x3(top, right, left);
+        }
+    }
+    
+    int2x3 Left(int2 prev)
+    {
+        if (math.all(prev == right))
+        {
+            return new int2x3(bottom, top, left);
+        }
+        else if (math.all(prev == bottom))
+        {
+            return new int2x3(right, top, left);
+        }
+        else if (math.all(prev == top))
+        {
+            return new int2x3(right, bottom, left);
+        }
+        else
+        {
+            return new int2x3(right, bottom, top);
+        }
+    }
+
+    int2 bottom = new int2(0, -1);
+    int2 left = new int2(-1, 0);
+    int2 top = new int2(0, 1);
+    int2 right = new int2(1, 0);
 
     public static void Mark(int2 gridPos, Grid grid)
     {
         Vector3Int index3d = new(gridPos.x, gridPos.y);
         var d = grid.GetCellCenterWorld(index3d);
         d.z = -1;
-        Debug.DrawRay(d + Vector3.down * 0.375f, Vector3.up * 0.75f, Color.red, 100);
-        Debug.DrawRay(d + Vector3.left * 0.375f, Vector3.right * 0.75f, Color.red, 100);
+        Debug.DrawRay(d + Vector3.down * 0.375f, Vector3.up * 0.75f, Color.red, 10f);
+        Debug.DrawRay(d + Vector3.left * 0.375f, Vector3.right * 0.75f, Color.red, 10f);
     }
 
     void CopyMoves()
@@ -183,22 +284,8 @@ public class Warrior : MonoBehaviour
     [ContextMenu("DeugMoves")]
     public void DebugMoves()
     {
-        // for (int i = 0; i < walkable.Count; i++)
-        // {
-        //     for (int j = 0; j < walkable[i].Count; j++)
-        //     {
-        //         if (walkable[i][j])
-        //             Mark(new int2(j - offset, i - offset ), grid);
-        //     }
-        // }
-        RecalculatePath(new int2(0, 100));
+        RecalculatePath(new int2(0, 0));
         StartCoroutine(Draw());
-
-        // Debug.Log($"{walkable[2][11]} {walkable[0][11]} {walkable[1][12]} {walkable[1][10]}");
-        // Debug.Log($"{walkable[1][11]} {walkable[0][10]} {walkable[0][12]} {walkable[2][10]} {walkable[2][12]}");
-        // Debug.Log($"{walkable[1][13]} {walkable[1][9]} {walkable[1][8]} {walkable[1][14]}");
-        // Mark(new int2(0, 1), grid);
-        // Mark(new int2(0, 0), grid);
     }
 
     float waitTime = 0.1f;
@@ -206,11 +293,7 @@ public class Warrior : MonoBehaviour
     {
         for (int i = 0; i < moves.Count; i++)
         {
-            int2 m = moves[i] + offset;
-            Vector3Int index = new(m.x, m.y);
-            var pos = grid.GetCellCenterWorld(index);  
-            Debug.DrawRay(pos, Vector3.back, Color.red, 10);
-            Debug.Log("d");
+            Mark(moves[i], grid);
             yield return new WaitForSeconds(waitTime);
         }
     }
