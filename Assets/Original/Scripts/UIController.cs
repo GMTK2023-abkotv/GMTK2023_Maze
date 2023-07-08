@@ -5,10 +5,16 @@ public class UIController : MonoBehaviour
     [SerializeField]
     GameObject _startCanvas;
 
-    // button startGame on startCanvas
-    public void OnStartGame()
+    void Start()
     {
         GameDelegatesContainer.Start();
         _startCanvas.gameObject.SetActive(false);
+    }
+
+    // button startGame on startCanvas
+    public void OnStartGame()
+    {
+        
+        
     }
 }
