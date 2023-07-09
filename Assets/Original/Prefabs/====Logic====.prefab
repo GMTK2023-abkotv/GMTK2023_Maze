@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fceeb29fdffbf43219372ffecc7821f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyChestSprite: {fileID: 21300000, guid: 244498611a7fc4bdf9fee73cda41911c, type: 3}
+  emptyChestSprite: {fileID: 21300000, guid: 5e932bcafba13104db977de75d3ad530, type: 3}
 --- !u!1 &881393333003292499
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ Transform:
   - {fileID: 8628790967232582223}
   - {fileID: 3894927867768137640}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1752385067988173955
 GameObject:
@@ -554,7 +554,7 @@ Camera:
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -655,7 +655,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6625868591201427831}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 

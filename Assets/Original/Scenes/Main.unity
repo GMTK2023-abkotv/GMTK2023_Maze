@@ -556,16 +556,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ====Logic====
       objectReference: {fileID: 0}
-    - target: {fileID: 1941983665677436861, guid: 4e46df83ec40f4ad294fbec0d2af284f,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2771580506975881852, guid: 4e46df83ec40f4ad294fbec0d2af284f,
-        type: 3}
-      propertyPath: orthographic size
-      value: 5.625
-      objectReference: {fileID: 0}
     - target: {fileID: 2822022171600415743, guid: 4e46df83ec40f4ad294fbec0d2af284f,
         type: 3}
       propertyPath: grid
@@ -683,11 +673,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ====UI====
       objectReference: {fileID: 0}
-    - target: {fileID: 4212912931942672597, guid: ec93607088aad442aab6d63e9b26b0bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5778423613484229793, guid: ec93607088aad442aab6d63e9b26b0bc,
         type: 3}
       propertyPath: m_RootOrder
@@ -741,31 +726,6 @@ PrefabInstance:
     - target: {fileID: 5778423613484229793, guid: ec93607088aad442aab6d63e9b26b0bc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6181929963274511732, guid: ec93607088aad442aab6d63e9b26b0bc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6181929963274511732, guid: ec93607088aad442aab6d63e9b26b0bc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6181929963274511732, guid: ec93607088aad442aab6d63e9b26b0bc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7686132275004358771, guid: ec93607088aad442aab6d63e9b26b0bc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8339177051971262878, guid: ec93607088aad442aab6d63e9b26b0bc,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
