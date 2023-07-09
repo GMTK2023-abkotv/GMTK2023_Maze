@@ -26,11 +26,6 @@ public class UIController : MonoBehaviour
         _endCanvas.gameObject.SetActive(true);
     }
 
-    void Start()
-    {
-        GameDelegatesContainer.Start();
-    }
-
     // button startGame on startCanvas
     public void OnStartGame()
     {

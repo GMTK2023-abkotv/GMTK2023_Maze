@@ -19,7 +19,17 @@ public class PlayerSpawn : MonoBehaviour
 
     Unity.Mathematics.Random rnd;
 
-    void Start()
+    void Awake()
+    {
+        GameDelegatesContainer.Start += OnStart;
+    }
+
+    void OnDestroy()
+    {
+        GameDelegatesContainer.Start -= OnStart;
+    }
+
+    void OnStart()
     {
         if (constantSeed < 0) rnd = new(123);
         else rnd = new((uint)constantSeed);
