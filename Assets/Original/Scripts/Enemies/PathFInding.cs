@@ -14,7 +14,7 @@ public class PathFinding
     List<List<bool>> visited;
 
     int2 currentPos; // in grid coordinates
-    int2 targetPos; // in grid coordinates
+    public int2 targetPos; // in grid coordinates
 
     bool found = false;
 

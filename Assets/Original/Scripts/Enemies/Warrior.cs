@@ -59,22 +59,22 @@ public class Warrior : MotionController
     void OnTimeStep()
     {
         bool hasMove = pathFinding.GetMove(moveIndex++, ref currentMove);
-        if (!hasMove)
-        {
-            if (!isWithTreasure)
-            { 
-                isWithTreasure = true;
-                GetComponent<SpriteRenderer>().color = Color.magenta;
-                GameDelegatesContainer.CoinTake?.Invoke();
-                var exit = GameDelegatesContainer.GetExit();
-                Debug.Log("the exit is " + exit);
-                RecalculatePath(exit);
-            }
-            else
-            {
-                GameDelegatesContainer.Lose();
-            }
 
+        bool nearTreasure = math.any(math.abs(currentMove - pathFinding.targetPos) == 1);
+        if (nearTreasure)
+        {
+            isWithTreasure = true;
+            GetComponent<SpriteRenderer>().color = Color.magenta;
+            GameDelegatesContainer.CoinTake?.Invoke();
+            var exit = GameDelegatesContainer.GetExit();
+            Debug.Log("the exit is " + exit);
+            RecalculatePath(exit);
+            return;
+        }
+
+        if (!hasMove && isWithTreasure)
+        {
+            GameDelegatesContainer.Lose();
             GameDelegatesContainer.TimeStep -= OnTimeStep;
             return;
         }
