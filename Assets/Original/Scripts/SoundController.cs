@@ -36,7 +36,6 @@ public class SoundController : MonoBehaviour
 
     void OnTimeStep()
     {
-        Debug.Log("Playing timestep");
         timeStepSource.clip = timeStep;
         timeStepSource.Play();
     }
@@ -45,7 +44,6 @@ public class SoundController : MonoBehaviour
     {
         for (int i = 0; i < ambientSources.Count; i++)
         {
-            Debug.Log("Playing " + i);
             ambientSources[i].Play();
         }
     }
