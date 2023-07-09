@@ -27,6 +27,9 @@ public class Warrior : MotionController
     [SerializeField]
     int proximitySound = 4;
 
+    [SerializeField]
+    Sprite DeadSprite;
+
     int currentStepsBeforeSkip;
 
     public void Initialize(int2 pos)
@@ -80,7 +83,12 @@ public class Warrior : MotionController
     {
         Debug.Log("Onsametile");
         GameDelegatesContainer.EnemySteppedOnPlayer += OnStepOnPlayer;
+        animator.Play(Animation_die);
         animator.SetBool("isDead", true);
+        animator.Play("Exit");
+        GetComponent<SpriteRenderer>().sprite = DeadSprite;
+        // We can change the Sprite to the Dead Sprite Manually here..
+
         GameDelegatesContainer.TimeStep -= OnTimeStep;
     }
 
@@ -101,7 +109,7 @@ public class Warrior : MotionController
     {
         if (isWithTreasure && currentStepsBeforeSkip >= stepsBeforeSkip)
         {
-            animator.Play(Animation_hit);
+            // animator.Play(Animation_hit); TODO: This is the wrong 
             currentStepsBeforeSkip = 0;
             return;
         }
