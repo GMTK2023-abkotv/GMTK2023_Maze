@@ -35,11 +35,13 @@ public class TileMapController : MonoBehaviour
     void Awake()
     {
         GameDelegatesContainer.PlayerSpawn += OnPlayerSpawn;
+        GameDelegatesContainer.GetPlayerPos += GetPlayerPos;
         GameDelegatesContainer.GetTreausreChestPos += GetTreasureChestPos;
         GameDelegatesContainer.GetCellWorldPos += GetCellWorldPos;
 
         GameDelegatesContainer.Start += OnStart;
-        GameDelegatesContainer.End += OnEnd;
+        GameDelegatesContainer.Lose += OnEnd;
+        GameDelegatesContainer.Win += OnEnd;
 
         GameDelegatesContainer.GetMaze += GetMaze;
         GameDelegatesContainer.GetGrid += GetGrid;
@@ -54,16 +56,20 @@ public class TileMapController : MonoBehaviour
             int2 exit = new int2(entryPos.x, entryPos.y);
             exits.Add(exit);
         }
+
+        playerPos = Vector3Int.zero;
     }
 
     void OnDestroy()
     {
         GameDelegatesContainer.PlayerSpawn -= OnPlayerSpawn;
+        GameDelegatesContainer.GetPlayerPos -= GetPlayerPos;
         GameDelegatesContainer.GetTreausreChestPos -= GetTreasureChestPos;
         GameDelegatesContainer.GetCellWorldPos -= GetCellWorldPos;
 
         GameDelegatesContainer.Start -= OnStart;
-        GameDelegatesContainer.End -= OnEnd;
+        GameDelegatesContainer.Lose -= OnEnd;
+        GameDelegatesContainer.Win -= OnEnd;
 
         GameDelegatesContainer.GetMaze -= GetMaze;
         GameDelegatesContainer.GetGrid -= GetGrid;
@@ -75,6 +81,11 @@ public class TileMapController : MonoBehaviour
     void OnPlayerSpawn(Vector3Int spawnPos, Transform player)
     {
         playerPos = spawnPos;
+    }
+
+    Vector3Int GetPlayerPos()
+    {
+        return playerPos;
     }
 
     Vector3Int GetTreasureChestPos()

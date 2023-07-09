@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
 
     void OnDestroy()
     {
-        GameDelegatesContainer.PlayerSpawn += OnPlayerSpawn;
+        GameDelegatesContainer.PlayerSpawn -= OnPlayerSpawn;
     }
 
     void OnPlayerSpawn(Vector3Int gridPos, Transform player)
