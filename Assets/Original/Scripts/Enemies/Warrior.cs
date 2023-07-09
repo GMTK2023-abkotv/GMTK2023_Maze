@@ -26,7 +26,7 @@ public class Warrior : MotionController
         animator = GetComponent<Animator>();
 
         Animation_idle = Animator.StringToHash("Player_idle");
-        Animation_move = Animator.StringToHash("Player_walk");
+        Animation_move = Animator.StringToHash("Player_move");
         Animation_attack = Animator.StringToHash("Player_attack");
         Animation_hit = Animator.StringToHash("Player_hit");
         Animation_die = Animator.StringToHash("Player_die");
