@@ -124,6 +124,9 @@ public class Warrior : MotionController
         var playerPos = GameDelegatesContainer.GetPlayerPos();
         if (currentMove.x == playerPos.x && currentMove.y == playerPos.y)
         {
+            // animator.SetBool("isDying", true);
+            animator.Play(Animation_die);
+            // we set both to true, but The animator only moves to the isDead (EXIT) when the isDying animation completes
             animator.SetBool("isDead", true);
             GameDelegatesContainer.EnemySteppedOnPlayer();
             GameDelegatesContainer.TimeStep -= OnTimeStep;
