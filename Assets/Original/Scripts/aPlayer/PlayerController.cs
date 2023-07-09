@@ -90,7 +90,7 @@ public class PlayerController : MotionController
                 break;
         }
 
-        if (Mathf.Abs(position.x) < 10 && Mathf.Abs(position.y) < 10)
+        if (Mathf.Abs(position.x) < 4 && Mathf.Abs(position.y) < 4)
         {
             GameDelegatesContainer.CloseToChest();
         }

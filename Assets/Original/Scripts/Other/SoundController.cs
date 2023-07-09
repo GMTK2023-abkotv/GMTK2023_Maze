@@ -34,6 +34,9 @@ public class SoundController : MonoBehaviour
 
         GameDelegatesContainer.CloseToChest += OnCloseToChest;
         GameDelegatesContainer.FarFromChest += OnFarFromChest;
+
+        GameDelegatesContainer.Win += OnWin;
+        GameDelegatesContainer.Lose += OnLose;
     }
 
     void OnDestroy()
@@ -43,6 +46,9 @@ public class SoundController : MonoBehaviour
 
         GameDelegatesContainer.CloseToChest -= OnCloseToChest;
         GameDelegatesContainer.FarFromChest -= OnFarFromChest;
+
+        GameDelegatesContainer.Win -= OnWin;
+        GameDelegatesContainer.Lose -= OnLose;
     }
 
     void OnCloseToChest()
@@ -79,12 +85,21 @@ public class SoundController : MonoBehaviour
 
     void OnWin()
     {
+        foreach (var source in ambientSources)
+        {
+            source.Stop();
+        }
         endSource.clip = win;
         endSource.Play();
     }
 
     void OnLose()
     {
+        foreach (var source in ambientSources)
+        {
+            source.Stop();
+        }
+
         endSource.clip = lose;
         endSource.Play();
     }

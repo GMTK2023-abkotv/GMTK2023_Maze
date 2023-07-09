@@ -6,19 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public void StartButton()
+    void Update()
     {
-        SceneManager.LoadScene("Main");
-    }
-    
-    public void CreditsButton()
-    {
-        SceneManager.LoadScene("Credits");
-    }
-    public void ExitButton()
-    {
-        Application.Quit();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        if (Input.anyKeyDown)
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 
 }

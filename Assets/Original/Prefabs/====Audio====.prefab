@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1851543751860161072}
   - component: {fileID: 1792081339897665567}
   m_Layer: 0
-  m_Name: first
+  m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,9 +431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ambientSources:
-  - {fileID: 1792081339897665567}
   - {fileID: 6426488629216807794}
   - {fileID: 2756149883032675382}
+  chestAmbient: {fileID: 1792081339897665567}
   timeStep: {fileID: 8300000, guid: 643f6535d2acc4342a16fed26538a24b, type: 3}
   win: {fileID: 8300000, guid: 73f455e57297848ab89c1dd7fca9f687, type: 3}
   lose: {fileID: 8300000, guid: 320f7fa174c5b482ba8cdd442e3c0f4e, type: 3}
@@ -602,7 +602,7 @@ Transform:
   - {fileID: 5727057456664355907}
   - {fileID: 3766492517356339933}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8942687046484770203
 GameObject:

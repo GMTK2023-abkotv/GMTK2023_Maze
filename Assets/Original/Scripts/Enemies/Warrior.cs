@@ -110,7 +110,7 @@ public class Warrior : MotionController
         var playerPos = GameDelegatesContainer.GetPlayerPos();
         if (currentMove.x == playerPos.x && currentMove.y == playerPos.y)
         {
-            animator.SetBool("Die", true);
+            animator.SetBool("isDead", true);
             GameDelegatesContainer.EnemySteppedOnPlayer();
             GameDelegatesContainer.TimeStep -= OnTimeStep;
             return;
