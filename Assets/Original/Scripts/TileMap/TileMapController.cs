@@ -16,8 +16,6 @@ public class TileMapController : MonoBehaviour
     [SerializeField]
     Tilemap bgTilemap;
 
-
-
     [SerializeField]
     Grid grid;
 
@@ -154,7 +152,7 @@ public class TileMapController : MonoBehaviour
         }
 
         var newPlayerPos = playerPos + moveCommand.Direction;
-        TileTypes tileTypeToWalkOn = getTileType(newPlayerPos); // it actually means newPlayerPos
+        TileTypes tileTypeToWalkOn = GetTileType(newPlayerPos); // it actually means newPlayerPos
 
         Debug.Log(newPlayerPos);
         Debug.Log(tileTypeToWalkOn);
@@ -162,11 +160,11 @@ public class TileMapController : MonoBehaviour
         // Try Moving to the Position Requested Tile.
         var newPos = grid.GetCellCenterWorld(newPlayerPos);
         bool moved = PlayerDelegatesContainer.NewMoveDestination(newPos, tileTypeToWalkOn);
-        // GameDelegatesContainer.TimeStep();
+        GameDelegatesContainer.TimeStep();
         if (moved) playerPos = newPlayerPos;
     }
 
-    TileTypes getTileType(Vector3Int pos)
+    TileTypes GetTileType(Vector3Int pos)
     {
 
         // This Layer has the walls
@@ -186,12 +184,6 @@ public class TileMapController : MonoBehaviour
             return TileTypes.Walkable;
         }
 
-
-        // playerPos = ;
-        // var newPos = grid.GetCellCenterWorld(playerPos);
-        // // var newPos = logicTilemap.GetTransformMatrix(new Vector3Int(player.x, player.y)).GetPosition();
-        // PlayerDelegatesContainer.NewMoveDestination(newPos);
-        
         return TileTypes.NotATile;
     }
 

@@ -55,8 +55,6 @@ public class PlayerController : MotionController
 
     bool OnNewMove(Vector2 position, TileTypes tileType)
     {
-        // Now we just need to handle animation here.
-        Debug.Log(tileType);
         switch (tileType)
         {
             case TileTypes.Walkable:
@@ -68,7 +66,6 @@ public class PlayerController : MotionController
                 end = position;
                 lerp = 0;
                 return true;
-                // break;
 
             case TileTypes.Wall:
                 break;
