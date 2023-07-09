@@ -12,7 +12,7 @@ public class Chest : MonoBehaviour
 
     void OnDestroy()
     {
-        GameDelegatesContainer.CoinTake += OnCoinTake;
+        GameDelegatesContainer.CoinTake -= OnCoinTake;
     }
 
     void OnCoinTake()

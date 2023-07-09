@@ -72,17 +72,26 @@ public class Warrior : MotionController
             }
             else
             {
-                GameDelegatesContainer.End();
+                GameDelegatesContainer.Lose();
             }
 
+            GameDelegatesContainer.TimeStep -= OnTimeStep;
             return;
         }
-        
+
         pathFinding.SetPosition(currentMove);
         Vector3Int move = new Vector3Int(currentMove.x, currentMove.y, 0);
         var pos = GameDelegatesContainer.GetCellWorldPos(move);
         start = transform.position;
         end = pos;
         lerp = 0;
+
+        var playerPos = GameDelegatesContainer.GetPlayerPos();
+        if (currentMove.x == playerPos.x && currentMove.y == playerPos.y)
+        {
+            GameDelegatesContainer.Win();
+            GameDelegatesContainer.TimeStep -= OnTimeStep;
+            return;
+        }
     }
 }

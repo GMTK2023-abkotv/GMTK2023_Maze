@@ -4,26 +4,38 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     [SerializeField]
-    GameObject _startCanvas;
+    GameObject startCanvas;
 
     [SerializeField]
-    GameObject _endCanvas;
+    GameObject loseCanvas;
+
+    [SerializeField]
+    GameObject winCanvas;
 
     void Awake()
     {
-        GameDelegatesContainer.End += OnEnd;
-        _endCanvas.gameObject.SetActive(false);
-        _startCanvas.gameObject.SetActive(false);
+        startCanvas.gameObject.SetActive(false);
+        loseCanvas.gameObject.SetActive(false);
+        winCanvas.gameObject.SetActive(false);
+
+        GameDelegatesContainer.Lose += OnLose;
+        GameDelegatesContainer.Win += OnWin;
     }
 
     void OnDestroy()
     {
-        GameDelegatesContainer.End -= OnEnd;
+        GameDelegatesContainer.Lose -= OnLose;
+        GameDelegatesContainer.Win -= OnWin;
     }
 
-    void OnEnd()
+    void OnLose()
     {
-        _endCanvas.gameObject.SetActive(true);
+        loseCanvas.gameObject.SetActive(true);
+    }
+    
+    public void OnWin()
+    {
+        winCanvas.gameObject.SetActive(true);
     }
 
     // button startGame on startCanvas
@@ -32,7 +44,7 @@ public class UIController : MonoBehaviour
         
     }
 
-    public void OnEndGame()
+    public void Restart()
     {
         SceneManager.LoadScene(1);
     }

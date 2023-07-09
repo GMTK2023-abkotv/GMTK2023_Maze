@@ -7,9 +7,11 @@ using UnityEngine;
 public static class GameDelegatesContainer
 {
     public static Action Start;
-    public static Action End;
+    public static Action Lose;
+    public static Action Win;
 
     public static Action<Vector3Int, Transform> PlayerSpawn;
+    public static Func<Vector3Int> GetPlayerPos;
     public static Func<Vector3Int> GetTreausreChestPos;
 
     public static Action CoinTake;
