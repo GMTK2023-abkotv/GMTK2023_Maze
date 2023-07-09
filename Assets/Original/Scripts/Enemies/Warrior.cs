@@ -9,12 +9,28 @@ using Unity.Mathematics;
 public class Warrior : MotionController
 {
     PathFinding pathFinding;
+
+    Animator animator;
+    int Animation_idle;
+    int Animation_move;
+    int Animation_attack;
+    int Animation_die;
+    int Animation_hit;
+
     int moveIndex;
     int2 currentMove;
     bool isWithTreasure;
 
     public void Initialize(int2 pos)
     {
+        animator = GetComponent<Animator>();
+
+        Animation_idle = Animator.StringToHash("Player_idle");
+        Animation_move = Animator.StringToHash("Player_walk");
+        Animation_attack = Animator.StringToHash("Player_attack");
+        Animation_hit = Animator.StringToHash("Player_hit");
+        Animation_die = Animator.StringToHash("Player_die");
+
         pathFinding = new();
         pathFinding.SetPosition(pos);
 
@@ -87,6 +103,9 @@ public class Warrior : MotionController
         start = transform.position;
         end = pos;
         lerp = 0;
+
+        animator.Play(Animation_move);
+        new WaitForSeconds(1);
 
         var playerPos = GameDelegatesContainer.GetPlayerPos();
         if (currentMove.x == playerPos.x && currentMove.y == playerPos.y)

@@ -55,7 +55,7 @@ public class PlayerController : MotionController
                 Vector2 dir = position - (Vector2)transform.position;
 
                 // by defauly minotaur faces left so flip it if it wants to go right
-                _SpriteRenderer.flipX = (dir.x == 1) ? true : false;
+                if (dir.x != 0) _SpriteRenderer.flipX = (dir.x == 1) ? true : false;
                 // Play Walk animation once ! NO_REPEAT
                 // no need to use animator variables.
                 animator.Play(Animation_move);

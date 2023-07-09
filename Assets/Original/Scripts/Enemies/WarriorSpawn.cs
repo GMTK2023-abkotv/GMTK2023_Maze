@@ -16,7 +16,7 @@ public class WarriorSpawn : MonoBehaviour
 
     Unity.Mathematics.Random rnd;
 
-    void Awake()
+    void Start()
     {
         if (constantSeed < 0) rnd = new();
         else rnd = new((uint)constantSeed);
