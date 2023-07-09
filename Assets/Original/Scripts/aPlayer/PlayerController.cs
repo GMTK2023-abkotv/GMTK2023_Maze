@@ -5,7 +5,7 @@ public enum TileTypes {
     Walkable,
     Wall,
     Warrior,
-    Trap,
+    Chest,
     NotATile // just for a default
 }
 
