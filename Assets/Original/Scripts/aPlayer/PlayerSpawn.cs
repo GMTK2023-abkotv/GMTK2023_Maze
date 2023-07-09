@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -28,7 +29,7 @@ public class PlayerSpawn : MonoBehaviour
 
     void OnStart()
     {
-        if (constantSeed < 0) rnd = new(123);
+        if (constantSeed < 0) rnd = new((uint)Guid.NewGuid().GetHashCode());
         else rnd = new((uint)constantSeed);
 
         var spawnIndex = rnd.NextInt(0, transform.childCount);
