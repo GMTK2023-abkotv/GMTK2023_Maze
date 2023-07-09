@@ -144,7 +144,8 @@ public class TileMapController : MonoBehaviour
             for (int j = 0; j < dims.x; j++)
             {
                 Vector3Int pos = new(j - gridOffset, i - gridOffset, 0);
-                maze[i].Add(GetTileType(pos) == TileTypes.Walkable);
+                TileTypes tileType = GetTileType(pos);
+                maze[i].Add(tileType == TileTypes.Walkable || tileType == TileTypes.Chest);
             }
         }
 
@@ -173,6 +174,14 @@ public class TileMapController : MonoBehaviour
     {
         if (walls.HasTile(pos)) {
             return TileTypes.Wall;
+        }
+
+        bool nearTreasure = math.abs(pos.x - treasurePos.x) <= 1
+            && (treasurePos.y - pos.y >= 0
+                && treasurePos.y - pos.y <= 1);
+        if (nearTreasure)
+        {
+            return TileTypes.Chest;
         }
 
         if (ground.HasTile(pos)) {

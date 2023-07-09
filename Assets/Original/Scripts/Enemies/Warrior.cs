@@ -60,11 +60,13 @@ public class Warrior : MotionController
     {
         bool hasMove = pathFinding.GetMove(moveIndex++, ref currentMove);
 
-        bool nearTreasure = math.all(math.abs(currentMove - pathFinding.targetPos) <= 1);
+        bool nearTreasure = math.abs(currentMove.x - pathFinding.targetPos.x) <= 2 
+            && (pathFinding.targetPos.y - currentMove.y >= -1 
+                && pathFinding.targetPos.y - currentMove.y <= 2);
         if (nearTreasure && !isWithTreasure)
         {
             isWithTreasure = true;
-            GetComponent<SpriteRenderer>().color = Color.magenta;
+            // GetComponent<SpriteRenderer>().color = Color.magenta;
             GameDelegatesContainer.CoinTake?.Invoke();
             var exit = GameDelegatesContainer.GetExit();
             Debug.Log("the exit is " + exit);
