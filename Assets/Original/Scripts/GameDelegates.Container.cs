@@ -14,6 +14,8 @@ public static class GameDelegatesContainer
     public static Func<Vector3Int> GetPlayerPos;
     public static Func<Vector3Int> GetTreausreChestPos;
 
+    public static Action EnemySteppedOnPlayer;
+
     public static Action CoinTake;
     public static Func<Vector3Int> GetExit;
     public static Action MapChange;
