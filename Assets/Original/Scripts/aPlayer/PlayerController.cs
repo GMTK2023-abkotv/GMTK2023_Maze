@@ -23,22 +23,11 @@ public class PlayerController : MotionController
     protected override void Awake()
     {
         base.Awake();
-        GameDelegatesContainer.Start += OnStart;
-        GameDelegatesContainer.End += OnEnd;
-    }
 
-    void OnDestroy()
-    {
-        GameDelegatesContainer.Start -= OnStart;
-        GameDelegatesContainer.End -= OnEnd;
-    }
-
-    void OnStart()
-    {
         PlayerDelegatesContainer.IsMoving += IsMoving;
-        PlayerDelegatesContainer.NewMoveDestination += OnNewMove;
+        PlayerDelegatesContainer.NewMove += OnNewMove;
         animator = GetComponent<Animator>();
-        
+
         // Hashing animation for better performance
         Animation_idle = Animator.StringToHash("Player_idle");
         Animation_move = Animator.StringToHash("Player_move");
@@ -47,13 +36,13 @@ public class PlayerController : MotionController
         Animation_die = Animator.StringToHash("Player_die");
     }
 
-    void OnEnd()
+    void OnDestroy()
     {
         PlayerDelegatesContainer.IsMoving -= IsMoving;
-        PlayerDelegatesContainer.NewMoveDestination -= OnNewMove;
+        PlayerDelegatesContainer.NewMove -= OnNewMove;
     }
 
-    bool OnNewMove(Vector2 position, TileTypes tileType)
+    void OnNewMove(Vector2 position, TileTypes tileType)
     {
         switch (tileType)
         {
@@ -65,7 +54,7 @@ public class PlayerController : MotionController
                 start = transform.position;
                 end = position;
                 lerp = 0;
-                return true;
+                break;
 
             case TileTypes.Wall:
                 break;
@@ -77,7 +66,6 @@ public class PlayerController : MotionController
                 Debug.LogError("HOW DID WE GET HERE !!!");
                 break;
         }
-        return false;
     }
 
     Transform GetTransform()

@@ -9,9 +9,10 @@ public static class GameDelegatesContainer
     public static Action Start;
     public static Action End;
 
-    public static Func<Vector3Int> GetPlayerPos;
+    public static Action<Vector3Int, Transform> PlayerSpawn;
     public static Func<Vector3Int> GetTreausreChestPos;
 
+    public static Action CoinTake;
     public static Func<Vector3Int> GetExit;
     public static Action MapChange;
     
@@ -19,7 +20,6 @@ public static class GameDelegatesContainer
     public static Func<int> GetCurrentTime;
 
     public static Func<Vector3Int, Vector3> GetCellWorldPos;
-    public static Func<Vector3Int, bool> IsWalkable;
 
     public static Func<List<List<bool>>> GetMaze;
     public static Func<Grid> GetGrid;

@@ -65,6 +65,7 @@ public class Warrior : MotionController
             { 
                 isWithTreasure = true;
                 GetComponent<SpriteRenderer>().color = Color.magenta;
+                GameDelegatesContainer.CoinTake?.Invoke();
                 var exit = GameDelegatesContainer.GetExit();
                 Debug.Log("the exit is " + exit);
                 RecalculatePath(exit);

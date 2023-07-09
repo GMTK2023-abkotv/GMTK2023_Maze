@@ -10,11 +10,9 @@ using UnityEngine.Assertions;
 public class TileMapController : MonoBehaviour
 {
     [SerializeField]
-    Tilemap groundTilemap;
+    Tilemap ground;
     [SerializeField]
-    Tilemap fgTilemap;
-    [SerializeField]
-    Tilemap bgTilemap;
+    Tilemap walls;
 
     [SerializeField]
     Grid grid;
@@ -36,10 +34,9 @@ public class TileMapController : MonoBehaviour
 
     void Awake()
     {
-        GameDelegatesContainer.GetPlayerPos += GetPlayerPos;
+        GameDelegatesContainer.PlayerSpawn += OnPlayerSpawn;
         GameDelegatesContainer.GetTreausreChestPos += GetTreasureChestPos;
         GameDelegatesContainer.GetCellWorldPos += GetCellWorldPos;
-        GameDelegatesContainer.IsWalkable += IsWalkable;
 
         GameDelegatesContainer.Start += OnStart;
         GameDelegatesContainer.End += OnEnd;
@@ -61,10 +58,9 @@ public class TileMapController : MonoBehaviour
 
     void OnDestroy()
     {
-        GameDelegatesContainer.GetPlayerPos -= GetPlayerPos;
+        GameDelegatesContainer.PlayerSpawn -= OnPlayerSpawn;
         GameDelegatesContainer.GetTreausreChestPos -= GetTreasureChestPos;
         GameDelegatesContainer.GetCellWorldPos -= GetCellWorldPos;
-        GameDelegatesContainer.IsWalkable -= IsWalkable;
 
         GameDelegatesContainer.Start -= OnStart;
         GameDelegatesContainer.End -= OnEnd;
@@ -76,9 +72,9 @@ public class TileMapController : MonoBehaviour
         GameDelegatesContainer.GetExit -= GetExit;
     }
 
-    Vector3Int GetPlayerPos()
+    void OnPlayerSpawn(Vector3Int spawnPos, Transform player)
     {
-        return playerPos;
+        playerPos = spawnPos;
     }
 
     Vector3Int GetTreasureChestPos()
@@ -137,7 +133,7 @@ public class TileMapController : MonoBehaviour
             for (int j = 0; j < dims.x; j++)
             {
                 Vector3Int pos = new(j - gridOffset, i - gridOffset, 0);
-                maze[i].Add(IsWalkable(pos));
+                maze[i].Add(GetTileType(pos) == TileTypes.Walkable);
             }
         }
 
@@ -152,32 +148,23 @@ public class TileMapController : MonoBehaviour
         }
 
         var newPlayerPos = playerPos + moveCommand.Direction;
-        TileTypes tileTypeToWalkOn = GetTileType(newPlayerPos); // it actually means newPlayerPos
-
-        // Try Moving to the Position Requested Tile.
-        var newPos = grid.GetCellCenterWorld(newPlayerPos);
-        bool moved = PlayerDelegatesContainer.NewMoveDestination(newPos, tileTypeToWalkOn);
-        GameDelegatesContainer.TimeStep();
-        if (moved) playerPos = newPlayerPos;
-    }
+        TileTypes tileType = GetTileType(newPlayerPos); // it actually means newPlayerPos
+        if (tileType == TileTypes.Walkable || tileType == TileTypes.Warrior)
+        { 
+            var newPos = grid.GetCellCenterWorld(newPlayerPos);
+            playerPos = newPlayerPos;
+            PlayerDelegatesContainer.NewMove(newPos, tileType);
+            GameDelegatesContainer.TimeStep();
+        }
+    }   
 
     TileTypes GetTileType(Vector3Int pos)
     {
-
-        // This Layer has the walls
-        var tile = bgTilemap.GetTile(pos);
-        if (tile) {
+        if (walls.HasTile(pos)) {
             return TileTypes.Wall;
         }
 
-        // these are walkable
-        tile = fgTilemap.GetTile(pos);
-        if (tile) {
-            return TileTypes.Walkable;
-        }
-
-        tile = groundTilemap.GetTile(pos);
-        if (tile) {
+        if (ground.HasTile(pos)) {
             return TileTypes.Walkable;
         }
 
@@ -187,17 +174,6 @@ public class TileMapController : MonoBehaviour
     Vector3 GetCellWorldPos(Vector3Int gridPos)
     {
         return grid.GetCellCenterWorld(gridPos);
-    }
-
-    bool IsWalkable(Vector3Int pos)
-    {
-        var tile = groundTilemap.GetTile(pos);
-        if (tile.name == "black")
-        {
-            return false;
-        }
-
-        return true;
     }
 
     public static void Mark(int2 gridPos, Grid grid)
