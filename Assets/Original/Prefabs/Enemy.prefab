@@ -102,6 +102,7 @@ MonoBehaviour:
   _moveSpeed: 20
   stepsBeforeSkip: 3
   proximitySound: 4
+  DeadSprite: {fileID: 1684747042, guid: 979d01382f790b249b842930bcb74346, type: 3}
 --- !u!95 &3093494006251665382
 Animator:
   serializedVersion: 5
