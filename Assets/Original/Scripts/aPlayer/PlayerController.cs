@@ -29,6 +29,8 @@ public class PlayerController : MotionController
         PlayerDelegatesContainer.IsMoving += IsMoving;
         PlayerDelegatesContainer.NewMove += OnNewMove;
 
+        GameDelegatesContainer.EnemySteppedOnPlayer += WinPlayAttack;
+
         _SpriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
@@ -44,6 +46,18 @@ public class PlayerController : MotionController
     {
         PlayerDelegatesContainer.IsMoving -= IsMoving;
         PlayerDelegatesContainer.NewMove -= OnNewMove;
+        GameDelegatesContainer.EnemySteppedOnPlayer -= WinPlayAttack;
+    }
+
+    void WinPlayAttack()
+    {
+        animator.Play(Animation_attack);
+        Invoke("Win", 1);
+    }
+
+    void Win()
+    {
+        GameDelegatesContainer.Win();
     }
 
     void OnNewMove(Vector2 position, TileTypes tileType)
@@ -67,13 +81,22 @@ public class PlayerController : MotionController
 
             case TileTypes.Wall:
                 break;
-                
+
             case TileTypes.NotATile:
                 break;
 
             default:
                 Debug.LogError("HOW DID WE GET HERE !!!");
                 break;
+        }
+
+        if (Mathf.Abs(position.x) < 10 && Mathf.Abs(position.y) < 10)
+        {
+            GameDelegatesContainer.CloseToChest();
+        }
+        else
+        {
+            GameDelegatesContainer.FarFromChest();
         }
     }
 
