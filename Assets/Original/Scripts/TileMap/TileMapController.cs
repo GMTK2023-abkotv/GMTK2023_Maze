@@ -154,14 +154,11 @@ public class TileMapController : MonoBehaviour
         var newPlayerPos = playerPos + moveCommand.Direction;
         TileTypes tileTypeToWalkOn = GetTileType(newPlayerPos); // it actually means newPlayerPos
 
-        Debug.Log(newPlayerPos);
-        Debug.Log(tileTypeToWalkOn);
-
         // Try Moving to the Position Requested Tile.
         var newPos = grid.GetCellCenterWorld(newPlayerPos);
         bool moved = PlayerDelegatesContainer.NewMoveDestination(newPos, tileTypeToWalkOn);
-        if (moved) playerPos = newPlayerPos;
         GameDelegatesContainer.TimeStep();
+        if (moved) playerPos = newPlayerPos;
     }
 
     TileTypes GetTileType(Vector3Int pos)
