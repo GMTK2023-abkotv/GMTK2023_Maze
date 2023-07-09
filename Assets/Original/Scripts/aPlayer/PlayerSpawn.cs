@@ -14,9 +14,6 @@ public class PlayerSpawn : MonoBehaviour
     [Tooltip("Use negative to disable constantSeeding")]
     int constantSeed = -1;
 
-    [SerializeField]
-    int spawnIndex = 1;
-
     Unity.Mathematics.Random rnd;
 
     void Awake()
@@ -34,7 +31,7 @@ public class PlayerSpawn : MonoBehaviour
         if (constantSeed < 0) rnd = new(123);
         else rnd = new((uint)constantSeed);
 
-        // var spawnIndex = rnd.NextInt(0, transform.childCount);
+        var spawnIndex = rnd.NextInt(0, transform.childCount);
         var index = grid.WorldToCell(transform.GetChild(spawnIndex).position);
         Vector3 pos = grid.GetCellCenterWorld(index);
         var gb = Instantiate(prefab, pos, Quaternion.identity);
