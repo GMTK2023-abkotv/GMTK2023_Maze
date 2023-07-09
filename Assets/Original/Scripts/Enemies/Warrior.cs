@@ -61,7 +61,7 @@ public class Warrior : MotionController
         bool hasMove = pathFinding.GetMove(moveIndex++, ref currentMove);
 
         bool nearTreasure = math.all(math.abs(currentMove - pathFinding.targetPos) <= 1);
-        if (nearTreasure)
+        if (nearTreasure && !isWithTreasure)
         {
             isWithTreasure = true;
             GetComponent<SpriteRenderer>().color = Color.magenta;
