@@ -1,5 +1,13 @@
 using UnityEngine;
 
+public enum TileType
+{ 
+    Ground,
+    Wall,
+    Obstacle,
+    Enemy
+}
+
 public class PlayerController : MotionController
 {
     bool _isActivated;
@@ -7,11 +15,23 @@ public class PlayerController : MotionController
     protected override void Awake()
     {
         base.Awake();
+        GameDelegatesContainer.Start += OnStart;
+        GameDelegatesContainer.End += OnEnd;
+    }
+
+    void OnDestroy()
+    {
+        GameDelegatesContainer.Start -= OnStart;
+        GameDelegatesContainer.End -= OnEnd;
+    }
+
+    void OnStart()
+    {
         PlayerDelegatesContainer.IsMoving += IsMoving;
         PlayerDelegatesContainer.NewMoveDestination += OnNewMove;
     }
 
-    void OnDestroy()
+    void OnEnd()
     {
         PlayerDelegatesContainer.IsMoving -= IsMoving;
         PlayerDelegatesContainer.NewMoveDestination -= OnNewMove;
@@ -27,10 +47,5 @@ public class PlayerController : MotionController
     Transform GetTransform()
     {
         return transform;
-    }
-
-    bool IsMoving()
-    {
-        return lerp <= 1;
     }
 }

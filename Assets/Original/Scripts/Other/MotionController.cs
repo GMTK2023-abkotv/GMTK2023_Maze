@@ -19,10 +19,15 @@ public class MotionController : MonoBehaviour
 
     void Update()
     {
-        if (lerp <= 1)
+        if (IsMoving())
         {
             lerp += _moveSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(start, end, lerp);
         }
+    }
+
+    protected bool IsMoving()
+    {
+        return lerp <= 1;
     }
 }
