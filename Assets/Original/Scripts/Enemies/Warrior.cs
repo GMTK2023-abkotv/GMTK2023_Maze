@@ -83,9 +83,9 @@ public class Warrior : MotionController
     {
         Debug.Log("Onsametile");
         GameDelegatesContainer.EnemySteppedOnPlayer += OnStepOnPlayer;
-        animator.Play(Animation_die);
-        animator.SetBool("isDead", true);
-        GetComponent<SpriteRenderer>().sprite = DeadSprite;
+        if (animator) animator.Play(Animation_die);
+        // animator.SetBool("isDead", true);
+        // GetComponent<SpriteRenderer>().sprite = DeadSprite;
         // We can change the Sprite to the Dead Sprite Manually here..
 
         GameDelegatesContainer.TimeStep -= OnTimeStep;
@@ -108,7 +108,7 @@ public class Warrior : MotionController
     {
         if (isWithTreasure && currentStepsBeforeSkip >= stepsBeforeSkip)
         {
-            // animator.Play(Animation_hit); TODO: This is the wrong 
+            // if (animator) animator.Play(Animation_hit); TODO: This is the wrong 
             currentStepsBeforeSkip = 0;
             return;
         }
@@ -163,6 +163,6 @@ public class Warrior : MotionController
         end = pos;
         lerp = 0;
 
-        animator.Play(Animation_move);
+        if (animator) animator.Play(Animation_move);
     }
 }

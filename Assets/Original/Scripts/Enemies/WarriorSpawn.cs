@@ -16,7 +16,17 @@ public class WarriorSpawn : MonoBehaviour
 
     Unity.Mathematics.Random rnd;
 
-    void Start()
+    void Awake()
+    {
+        GameDelegatesContainer.Start += OnStart;
+    }
+
+    void OnDestroy()
+    {
+        GameDelegatesContainer.Start -= OnStart;
+    }
+
+    void OnStart()
     {
         if (constantSeed < 0) rnd = new((uint)Guid.NewGuid().GetHashCode());
         else rnd = new((uint)constantSeed);
