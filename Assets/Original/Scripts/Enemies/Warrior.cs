@@ -85,7 +85,6 @@ public class Warrior : MotionController
         GameDelegatesContainer.EnemySteppedOnPlayer += OnStepOnPlayer;
         animator.Play(Animation_die);
         animator.SetBool("isDead", true);
-        animator.Play("Exit");
         GetComponent<SpriteRenderer>().sprite = DeadSprite;
         // We can change the Sprite to the Dead Sprite Manually here..
 

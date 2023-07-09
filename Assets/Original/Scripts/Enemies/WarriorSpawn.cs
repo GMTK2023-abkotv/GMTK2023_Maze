@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-
+using System;
 public class WarriorSpawn : MonoBehaviour
 {
     [SerializeField]
@@ -18,7 +18,7 @@ public class WarriorSpawn : MonoBehaviour
 
     void Start()
     {
-        if (constantSeed < 0) rnd = new();
+        if (constantSeed < 0) rnd = new((uint)Guid.NewGuid().GetHashCode());
         else rnd = new((uint)constantSeed);
 
         var spawnIndex = rnd.NextInt(0, transform.childCount);
