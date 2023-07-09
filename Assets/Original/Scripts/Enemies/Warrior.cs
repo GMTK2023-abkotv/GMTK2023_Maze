@@ -24,6 +24,9 @@ public class Warrior : MotionController
     [SerializeField]
     int stepsBeforeSkip = 3;
 
+    [SerializeField]
+    int proximitySound = 4;
+
     int currentStepsBeforeSkip;
 
     public void Initialize(int2 pos)
@@ -119,9 +122,19 @@ public class Warrior : MotionController
         lerp = 0;
 
         animator.Play(Animation_move);
-        new WaitForSeconds(1);
 
         var playerPos = GameDelegatesContainer.GetPlayerPos();
+
+        if (Mathf.Abs(playerPos.x - currentMove.x) < proximitySound 
+            && Mathf.Abs(playerPos.y - currentMove.y) < proximitySound)
+        {
+            GameDelegatesContainer.CloseToHero();
+        }
+        else
+        {
+            GameDelegatesContainer.FarFromHero();
+        }
+
         if (currentMove.x == playerPos.x && currentMove.y == playerPos.y)
         {
             animator.SetBool("isDead", true);

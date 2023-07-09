@@ -17,6 +17,9 @@ public static class GameDelegatesContainer
     public static Action CloseToChest;
     public static Action FarFromChest;
 
+    public static Action CloseToHero;
+    public static Action FarFromHero;
+
     public static Action EnemySteppedOnPlayer;
 
     public static Action CoinTake;

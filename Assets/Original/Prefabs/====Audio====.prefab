@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2239565717032032570, guid: 974e468004e8147808469515d5dff69d,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 31f1e1e2d7b694c3e910af00633a47f2, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 3766492517356339933}
   - component: {fileID: 2756149883032675382}
   m_Layer: 0
-  m_Name: third
+  m_Name: Ambient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,8 +172,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2239565717032032570, guid: 974e468004e8147808469515d5dff69d,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: dbf1ff9411e294a599e4a4e59b6fd7be, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 9cb40aca96b0b478e82e118162ace668, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -430,10 +430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af56e45a4e70946ceac45e9d3ee22c9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ambientSources:
-  - {fileID: 6426488629216807794}
-  - {fileID: 2756149883032675382}
-  chestAmbient: {fileID: 1792081339897665567}
+  ambient: {fileID: 2756149883032675382}
+  chestProximity: {fileID: 1792081339897665567}
+  warriorProximity: {fileID: 6426488629216807794}
   timeStep: {fileID: 8300000, guid: 643f6535d2acc4342a16fed26538a24b, type: 3}
   win: {fileID: 8300000, guid: 73f455e57297848ab89c1dd7fca9f687, type: 3}
   lose: {fileID: 8300000, guid: 320f7fa174c5b482ba8cdd442e3c0f4e, type: 3}
@@ -615,7 +614,7 @@ GameObject:
   - component: {fileID: 5727057456664355907}
   - component: {fileID: 6426488629216807794}
   m_Layer: 0
-  m_Name: second
+  m_Name: Quirk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,8 +646,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2239565717032032570, guid: 974e468004e8147808469515d5dff69d,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: c60cd91f0ba0446c785c034a1665573c, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: dbf1ff9411e294a599e4a4e59b6fd7be, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

@@ -5,10 +5,13 @@ using UnityEngine;
 public class SoundController : MonoBehaviour
 {
     [SerializeField]
-    List<AudioSource> ambientSources;
+    AudioSource ambient;
 
     [SerializeField]
-    AudioSource chestAmbient;
+    AudioSource chestProximity;
+
+    [SerializeField]
+    AudioSource warriorProximity;
 
     [SerializeField]
     AudioClip timeStep;
@@ -26,6 +29,8 @@ public class SoundController : MonoBehaviour
     AudioSource endSource;
 
     bool isCloseToChest;
+    bool isCloseToHero;
+    bool isCoinTaken;
 
     void Awake()
     {
@@ -34,6 +39,11 @@ public class SoundController : MonoBehaviour
 
         GameDelegatesContainer.CloseToChest += OnCloseToChest;
         GameDelegatesContainer.FarFromChest += OnFarFromChest;
+
+        GameDelegatesContainer.CloseToHero += OnCloseToHero;
+        GameDelegatesContainer.FarFromHero += OnFarFromHero;
+
+        GameDelegatesContainer.CoinTake += OnCoinTake;
 
         GameDelegatesContainer.Win += OnWin;
         GameDelegatesContainer.Lose += OnLose;
@@ -47,25 +57,67 @@ public class SoundController : MonoBehaviour
         GameDelegatesContainer.CloseToChest -= OnCloseToChest;
         GameDelegatesContainer.FarFromChest -= OnFarFromChest;
 
+        GameDelegatesContainer.CloseToHero -= OnCloseToHero;
+        GameDelegatesContainer.FarFromHero -= OnFarFromHero;
+
+        GameDelegatesContainer.CoinTake -= OnCoinTake;
+
         GameDelegatesContainer.Win -= OnWin;
         GameDelegatesContainer.Lose -= OnLose;
     }
 
     void OnCloseToChest()
     {
+        if (isCoinTaken)
+        {
+            return;
+        }
+
         if (!isCloseToChest)
         {
             isCloseToChest = true;
-            chestAmbient.Play();
+            chestProximity.Play();
         }
     }
 
     void OnFarFromChest()
     {
+        if (isCoinTaken)
+        {
+            return;
+        }
+
         if (isCloseToChest)
         {
             isCloseToChest = false;
-            chestAmbient.Stop();
+            chestProximity.Stop();
+        }
+    }
+
+    void OnCloseToHero()
+    {
+        if (!isCloseToHero)
+        {
+            isCloseToHero = true;
+            warriorProximity.Play();
+        }
+    }
+
+    void OnCoinTake()
+    {
+        isCoinTaken = true;
+        if (isCloseToChest)
+        {
+            chestProximity.Stop();
+        }
+    }
+
+    void OnFarFromHero()
+    {
+        if (isCloseToHero)
+        {
+            isCloseToHero = false;
+            warriorProximity.Stop();
         }
     }
 
@@ -77,28 +129,19 @@ public class SoundController : MonoBehaviour
 
     void OnStart()
     {
-        for (int i = 0; i < ambientSources.Count; i++)
-        {
-            ambientSources[i].Play();
-        }
+        ambient.Play();
     }
 
     void OnWin()
     {
-        foreach (var source in ambientSources)
-        {
-            source.Stop();
-        }
+        ambient.Stop();
         endSource.clip = win;
         endSource.Play();
     }
 
     void OnLose()
     {
-        foreach (var source in ambientSources)
-        {
-            source.Stop();
-        }
+        ambient.Stop();
 
         endSource.clip = lose;
         endSource.Play();
