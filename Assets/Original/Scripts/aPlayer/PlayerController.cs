@@ -89,6 +89,15 @@ public class PlayerController : MotionController
                 Debug.LogError("HOW DID WE GET HERE !!!");
                 break;
         }
+
+        if (Mathf.Abs(position.x) < 10 && Mathf.Abs(position.y) < 10)
+        {
+            GameDelegatesContainer.CloseToChest();
+        }
+        else
+        {
+            GameDelegatesContainer.FarFromChest();
+        }
     }
 
     Transform GetTransform()
