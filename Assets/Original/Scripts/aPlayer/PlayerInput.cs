@@ -45,22 +45,22 @@ public class PlayerInput : MonoBehaviour
     {
         bool isWalking = false;
         direction = int2.zero;
-        if (Input.GetKeyUp(_moveLeftKey))
+        if (Input.GetKeyDown(_moveLeftKey))
         {
             direction.x = -1;
             isWalking = true;
         }
-        else if (Input.GetKeyUp(_moveRightKey))
+        else if (Input.GetKeyDown(_moveRightKey))
         {
             direction.x = 1;
             isWalking = true;
         }
-        else if (Input.GetKeyUp(_moveDownKey))
+        else if (Input.GetKeyDown(_moveDownKey))
         {
             direction.y = -1;
             isWalking = true;
         }
-        else if (Input.GetKeyUp(_moveUpKey))
+        else if (Input.GetKeyDown(_moveUpKey))
         {
             direction.y = 1;
             isWalking = true;

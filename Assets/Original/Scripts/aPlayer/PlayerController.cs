@@ -23,6 +23,18 @@ public class PlayerController : MotionController
     protected override void Awake()
     {
         base.Awake();
+        GameDelegatesContainer.Start += OnStart;
+        GameDelegatesContainer.End += OnEnd;
+    }
+
+    void OnDestroy()
+    {
+        GameDelegatesContainer.Start -= OnStart;
+        GameDelegatesContainer.End -= OnEnd;
+    }
+
+    void OnStart()
+    {
         PlayerDelegatesContainer.IsMoving += IsMoving;
         PlayerDelegatesContainer.NewMoveDestination += OnNewMove;
         animator = GetComponent<Animator>();
@@ -35,7 +47,7 @@ public class PlayerController : MotionController
         Animation_die = Animator.StringToHash("Player_die");
     }
 
-    void OnDestroy()
+    void OnEnd()
     {
         PlayerDelegatesContainer.IsMoving -= IsMoving;
         PlayerDelegatesContainer.NewMoveDestination -= OnNewMove;
@@ -74,10 +86,5 @@ public class PlayerController : MotionController
     Transform GetTransform()
     {
         return transform;
-    }
-
-    bool IsMoving()
-    {
-        return lerp <= 1;
     }
 }
