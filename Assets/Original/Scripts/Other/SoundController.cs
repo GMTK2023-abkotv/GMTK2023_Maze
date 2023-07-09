@@ -76,7 +76,7 @@ public class SoundController : MonoBehaviour
         if (!isCloseToChest)
         {
             isCloseToChest = true;
-            chestProximity.Play();
+            StartCoroutine(IncreaseVolumeChest());
         }
     }
 
@@ -90,8 +90,36 @@ public class SoundController : MonoBehaviour
         if (isCloseToChest)
         {
             isCloseToChest = false;
-            chestProximity.Stop();
+            StartCoroutine(DecreaseVolumeChest());
         }
+    }
+
+    IEnumerator IncreaseVolumeChest()
+    {
+        chestProximity.Play();
+        float time = 1.5f;
+        float c = 0;
+        chestProximity.volume = 0;
+        while (c < time)
+        {
+            chestProximity.volume = Mathf.Lerp(0, 1, c / time);
+            yield return null;
+            c += Time.deltaTime;
+        }
+    }
+
+    IEnumerator DecreaseVolumeChest()
+    {
+        float time = 1.5f;
+        float c = 0;
+        chestProximity.volume = 1;
+        while (c < time)
+        {
+            chestProximity.volume = Mathf.Lerp(1, 1, c / time);
+            yield return null;
+            c += Time.deltaTime;
+        }
+        chestProximity.Stop();
     }
 
     void OnCloseToHero()
@@ -99,8 +127,36 @@ public class SoundController : MonoBehaviour
         if (!isCloseToHero)
         {
             isCloseToHero = true;
-            warriorProximity.Play();
+            StartCoroutine(IncreaseVolumeWarrior());
         }
+    }
+
+    IEnumerator IncreaseVolumeWarrior()
+    {
+        warriorProximity.Play();
+        float time = 1.5f;
+        float c = 0;
+        warriorProximity.volume = 0;
+        while (c < time)
+        {
+            warriorProximity.volume = Mathf.Lerp(0, 1, c / time);
+            yield return null;
+            c += Time.deltaTime;
+        }
+    }
+
+    IEnumerator DecreaseVolumeWarrior()
+    {
+        float time = 1.5f;
+        float c = 0;
+        warriorProximity.volume = 1;
+        while (c < time)
+        {
+            warriorProximity.volume = Mathf.Lerp(1, 1, c / time);
+            yield return null;
+            c += Time.deltaTime;
+        }
+        warriorProximity.Stop();
     }
 
     void OnCoinTake()
@@ -117,7 +173,7 @@ public class SoundController : MonoBehaviour
         if (isCloseToHero)
         {
             isCloseToHero = false;
-            warriorProximity.Stop();
+            StartCoroutine(DecreaseVolumeWarrior());
         }
     }
 
