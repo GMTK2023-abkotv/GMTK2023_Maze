@@ -8,7 +8,13 @@ using UnityEngine.Assertions;
 public class TileMapController : MonoBehaviour
 {
     [SerializeField]
-    Tilemap logicTilemap;
+    Tilemap groundTilemap;
+    [SerializeField]
+    Tilemap fgTilemap;
+    [SerializeField]
+    Tilemap bgTilemap;
+
+
 
     [SerializeField]
     Grid grid;
@@ -16,7 +22,7 @@ public class TileMapController : MonoBehaviour
     [SerializeField]
     Vector2Int dims;
 
-    Vector3Int player;
+    Vector3Int playerPos;
     List<List<bool>> maze;
 
     int gridOffset;
@@ -43,7 +49,7 @@ public class TileMapController : MonoBehaviour
 
     Vector3Int GetPlayerPos()
     {
-        return player;
+        return playerPos;
     }
 
     void OnStart()
@@ -87,21 +93,51 @@ public class TileMapController : MonoBehaviour
             return;
         }
 
-        var newPlayer = player + moveCommand.Direction;
-        if (!IsWalkable(newPlayer))
-        {
-            return;
+        var newPlayerPos = playerPos + moveCommand.Direction;
+        TileTypes tileTypeToWalkOn = getTileType(newPlayerPos); // it actually means newPlayerPos
+
+        // Try Moving to the Position Requested Tile.
+        var newPos = grid.GetCellCenterWorld(newPlayerPos);
+        bool moved = PlayerDelegatesContainer.NewMoveDestination(newPos, tileTypeToWalkOn);
+        if (moved) playerPos = newPlayerPos;
+    }
+
+    TileTypes getTileType(Vector3Int pos)
+    {
+        // we need to check multiple tileMaps !
+        // TileTypes tileType;
+
+
+        // to simulate a priority for different TileMaps
+        // Ground has lowest Priority, EnemyLayer would have most ig
+        // Layers can be "Layered"/"Nested" so we need to check for the tile using a priority manner
+        
+        // This Layer has the walls
+        var tile = bgTilemap.GetTile(pos);
+        // if (tile && tile.name == "black") {
+        if (tile) {
+            return TileTypes.Wall;
         }
 
-        player = newPlayer;
-        var newPos = grid.GetCellCenterWorld(player);
-        // var newPos = logicTilemap.GetTransformMatrix(new Vector3Int(player.x, player.y)).GetPosition();
-        PlayerDelegatesContainer.NewMoveDestination(newPos);
+
+        // these are walkable
+        tile = fgTilemap.GetTile(pos);
+        if (tile) {
+            return TileTypes.Walkable;
+        }
+
+        tile = groundTilemap.GetTile(pos);
+        if (tile) {
+            return TileTypes.Walkable;
+        }
+
+        return TileTypes.NotATile;
+
     }
 
     bool IsWalkable(Vector3Int pos)
     {
-        var tile = logicTilemap.GetTile(pos);
+        var tile = groundTilemap.GetTile(pos);
         if (tile.name == "black")
         {
             return false;
