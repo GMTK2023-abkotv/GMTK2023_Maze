@@ -36092,7 +36092,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1124428791}
-  - component: {fileID: 1124428790}
   m_Layer: 0
   m_Name: KeepSceneView
   m_TagString: Untagged
@@ -36100,18 +36099,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1124428790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124428789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d467146a477fd4ee0bb7135fe3c5a11a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1124428791
 Transform:
   m_ObjectHideFlags: 0
@@ -49599,7 +49586,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 784870024}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: OnEndGame
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -50846,7 +50833,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 784870024}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: OnEndGame
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

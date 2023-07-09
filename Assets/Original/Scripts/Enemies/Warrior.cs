@@ -60,7 +60,7 @@ public class Warrior : MotionController
     {
         bool hasMove = pathFinding.GetMove(moveIndex++, ref currentMove);
 
-        bool nearTreasure = math.any(math.abs(currentMove - pathFinding.targetPos) == 1);
+        bool nearTreasure = math.all(math.abs(currentMove - pathFinding.targetPos) <= 1);
         if (nearTreasure)
         {
             isWithTreasure = true;
