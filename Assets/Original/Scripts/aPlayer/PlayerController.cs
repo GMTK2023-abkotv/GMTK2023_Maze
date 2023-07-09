@@ -12,13 +12,15 @@ public enum TileTypes {
 public class PlayerController : MotionController
 {
     bool _isActivated;
+
+    private SpriteRenderer _SpriteRenderer;
     Animator animator;
 
     int Animation_idle;
     int Animation_move;
-    int Animation_hit;
     int Animation_attack;
-    int Animation_die;
+    // int Animation_hit;
+    // int Animation_die;
 
     protected override void Awake()
     {
@@ -26,14 +28,16 @@ public class PlayerController : MotionController
 
         PlayerDelegatesContainer.IsMoving += IsMoving;
         PlayerDelegatesContainer.NewMove += OnNewMove;
+
+        _SpriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
         // Hashing animation for better performance
-        Animation_idle = Animator.StringToHash("Player_idle");
-        Animation_move = Animator.StringToHash("Player_move");
-        Animation_hit = Animator.StringToHash("Player_hit");
-        Animation_attack = Animator.StringToHash("Player_attack");
-        Animation_die = Animator.StringToHash("Player_die");
+        Animation_idle = Animator.StringToHash("minotaur_idle");
+        Animation_move = Animator.StringToHash("minotaur_walk");
+        Animation_attack = Animator.StringToHash("minotaur_smash");
+        // Animation_hit = Animator.StringToHash("Player_hit");
+        // Animation_die = Animator.StringToHash("Player_die");
     }
 
     void OnDestroy()
@@ -47,6 +51,11 @@ public class PlayerController : MotionController
         switch (tileType)
         {
             case TileTypes.Walkable:
+                // Flip the Sprite in the correct direction
+                Vector2 dir = position - (Vector2)transform.position;
+
+                // by defauly minotaur faces left so flip it if it wants to go right
+                _SpriteRenderer.flipX = (dir.x == 1) ? true : false;
                 // Play Walk animation once ! NO_REPEAT
                 // no need to use animator variables.
                 animator.Play(Animation_move);
