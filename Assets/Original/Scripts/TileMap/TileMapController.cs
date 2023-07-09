@@ -165,6 +165,12 @@ public class TileMapController : MonoBehaviour
         { 
             var newPos = grid.GetCellCenterWorld(newPlayerPos);
             playerPos = newPlayerPos;
+            int2 enemyPos = GameDelegatesContainer.GetEnemyPos();
+            if (playerPos.x == enemyPos.x && playerPos.y == enemyPos.y)
+            {
+                GameDelegatesContainer.EnemySteppedOnPlayer();
+            }
+
             PlayerDelegatesContainer.NewMove(newPos, tileType);
             GameDelegatesContainer.TimeStep();
         }

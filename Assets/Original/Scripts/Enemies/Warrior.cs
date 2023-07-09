@@ -49,6 +49,8 @@ public class Warrior : MotionController
 
         GameDelegatesContainer.TimeStep += OnTimeStep;
         GameDelegatesContainer.MapChange += OnMapChange;
+        GameDelegatesContainer.GetEnemyPos += GetEnemyPos;
+        GameDelegatesContainer.EnemySteppedOnPlayer += OnStepOnPlayer;
     }
 
     public bool IsOn(Vector3Int gridPos)
@@ -65,6 +67,21 @@ public class Warrior : MotionController
     {
         GameDelegatesContainer.TimeStep -= OnTimeStep;
         GameDelegatesContainer.MapChange -= OnMapChange;
+        GameDelegatesContainer.GetEnemyPos -= GetEnemyPos;
+        GameDelegatesContainer.EnemySteppedOnPlayer -= OnStepOnPlayer;
+    }
+
+    int2 GetEnemyPos()
+    {
+        return currentMove;
+    }
+
+    void OnStepOnPlayer()
+    {
+        Debug.Log("Onsametile");
+        GameDelegatesContainer.EnemySteppedOnPlayer += OnStepOnPlayer;
+        animator.SetBool("isDead", true);
+        GameDelegatesContainer.TimeStep -= OnTimeStep;
     }
 
     void OnMapChange()
@@ -82,7 +99,14 @@ public class Warrior : MotionController
 
     void OnTimeStep()
     {
-        bool hasMove = pathFinding.GetMove(moveIndex++, ref currentMove);
+        if (isWithTreasure && currentStepsBeforeSkip >= stepsBeforeSkip)
+        {
+            animator.Play(Animation_hit);
+            currentStepsBeforeSkip = 0;
+            return;
+        }
+
+        bool hasMove = pathFinding.GetMove(moveIndex, ref currentMove);
 
         bool nearTreasure = math.abs(currentMove.x - pathFinding.targetPos.x) <= 2 
             && (pathFinding.targetPos.y - currentMove.y >= -1 
@@ -106,25 +130,7 @@ public class Warrior : MotionController
             return;
         }
 
-        if (isWithTreasure && currentStepsBeforeSkip >= stepsBeforeSkip)
-        {
-            animator.Play(Animation_hit);
-            currentStepsBeforeSkip = 0;
-            return;
-        }
-
-        currentStepsBeforeSkip++;
-        pathFinding.SetPosition(currentMove);
-        Vector3Int move = new Vector3Int(currentMove.x, currentMove.y, 0);
-        var pos = GameDelegatesContainer.GetCellWorldPos(move);
-        start = transform.position;
-        end = pos;
-        lerp = 0;
-
-        animator.Play(Animation_move);
-
         var playerPos = GameDelegatesContainer.GetPlayerPos();
-
         if (Mathf.Abs(playerPos.x - currentMove.x) < proximitySound 
             && Mathf.Abs(playerPos.y - currentMove.y) < proximitySound)
         {
@@ -137,10 +143,19 @@ public class Warrior : MotionController
 
         if (currentMove.x == playerPos.x && currentMove.y == playerPos.y)
         {
-            animator.SetBool("isDead", true);
             GameDelegatesContainer.EnemySteppedOnPlayer();
-            GameDelegatesContainer.TimeStep -= OnTimeStep;
             return;
         }
+
+        moveIndex++;
+        currentStepsBeforeSkip++;
+        pathFinding.SetPosition(currentMove);
+        Vector3Int move = new Vector3Int(currentMove.x, currentMove.y, 0);
+        var pos = GameDelegatesContainer.GetCellWorldPos(move);
+        start = transform.position;
+        end = pos;
+        lerp = 0;
+
+        animator.Play(Animation_move);
     }
 }

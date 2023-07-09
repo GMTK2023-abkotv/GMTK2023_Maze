@@ -13,6 +13,8 @@ public static class GameDelegatesContainer
     public static Action<Vector3Int, Transform> PlayerSpawn;
     public static Func<Vector3Int> GetPlayerPos;
     public static Func<Vector3Int> GetTreausreChestPos;
+    public static Func<int2> GetEnemyPos;
+
 
     public static Action CloseToChest;
     public static Action FarFromChest;
