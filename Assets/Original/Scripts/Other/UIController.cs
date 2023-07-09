@@ -39,6 +39,6 @@ public class UIController : MonoBehaviour
 
     public void OnEndGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
