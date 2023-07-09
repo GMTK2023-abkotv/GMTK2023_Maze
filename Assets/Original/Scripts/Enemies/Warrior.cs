@@ -21,6 +21,11 @@ public class Warrior : MotionController
     int2 currentMove;
     bool isWithTreasure;
 
+    [SerializeField]
+    int stepsBeforeSkip = 3;
+
+    int currentStepsBeforeSkip;
+
     public void Initialize(int2 pos)
     {
         animator = GetComponent<Animator>();
@@ -82,6 +87,7 @@ public class Warrior : MotionController
         if (nearTreasure && !isWithTreasure)
         {
             isWithTreasure = true;
+            currentStepsBeforeSkip = 0;
             // GetComponent<SpriteRenderer>().color = Color.magenta;
             GameDelegatesContainer.CoinTake?.Invoke();
             var exit = GameDelegatesContainer.GetExit();
@@ -97,6 +103,14 @@ public class Warrior : MotionController
             return;
         }
 
+        if (isWithTreasure && currentStepsBeforeSkip >= stepsBeforeSkip)
+        {
+            animator.Play(Animation_hit);
+            currentStepsBeforeSkip = 0;
+            return;
+        }
+
+        currentStepsBeforeSkip++;
         pathFinding.SetPosition(currentMove);
         Vector3Int move = new Vector3Int(currentMove.x, currentMove.y, 0);
         var pos = GameDelegatesContainer.GetCellWorldPos(move);
