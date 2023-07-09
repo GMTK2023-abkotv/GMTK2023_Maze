@@ -160,8 +160,8 @@ public class TileMapController : MonoBehaviour
         // Try Moving to the Position Requested Tile.
         var newPos = grid.GetCellCenterWorld(newPlayerPos);
         bool moved = PlayerDelegatesContainer.NewMoveDestination(newPos, tileTypeToWalkOn);
-        GameDelegatesContainer.TimeStep();
         if (moved) playerPos = newPlayerPos;
+        GameDelegatesContainer.TimeStep();
     }
 
     TileTypes GetTileType(Vector3Int pos)
