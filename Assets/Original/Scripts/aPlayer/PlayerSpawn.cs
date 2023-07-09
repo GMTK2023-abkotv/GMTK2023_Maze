@@ -38,6 +38,6 @@ public class PlayerSpawn : MonoBehaviour
         var index = grid.WorldToCell(transform.GetChild(spawnIndex).position);
         Vector3 pos = grid.GetCellCenterWorld(index);
         var gb = Instantiate(prefab, pos, Quaternion.identity);
-        GameDelegatesContainer.PlayerSpawn(index, transform.GetChild(spawnIndex));
+        GameDelegatesContainer.PlayerSpawn(index, gb.transform);
     }
 }
